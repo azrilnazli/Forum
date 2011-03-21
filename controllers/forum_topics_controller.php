@@ -11,4 +11,12 @@ Class ForumTopicsController extends AppController{
 
     var $name = 'ForumTopics';
     var $scaffold;
+    
+    function beforeRender(){
+        // only display certain fields
+        $fields = array('staff_information_id','forum_category_id','title', 'descriptions');// field name in table
+        $this->set('scaffoldFields' ,  $fields); // send to view
+    } // beforeRender()    
+
+    
 } // ForumTopics
