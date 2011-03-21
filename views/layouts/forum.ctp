@@ -30,39 +30,84 @@ echo $this->Html->tag('h1', $header_link);
 <div class="grid_2 alpha" id="sidebar">
 <h2>Sidebar</h2>
   <ul>
-    <li>Lorem ipsum</li>
-    <li>Aliquam mauris </li>
-    <li>Vestibulum </li>
+    <li>Home</li>
+    <li>About Us</li>
+    <li>Contact Us</li>
 
-    <li>Nunc dignissim </li>
-    <li>Cras ornare </li>
-    <li>Vivamus</li>
-    <li>Praesent </li>
-    <li>Fusce </li>
-    <li>Integer vitae .</li>
-
-    <li>Vestibulum </li>
-  </ul>
+    <li>Forum Guidelines</li>
+    <li>Search</li>
+    <li>Sign Up</li>
+    <li>Forgot Password</li>  
+</ul>
   <p>&nbsp;</p>
 </div>
-<div class="grid_6" id="content"><h1>Aenean dignissim pellentesque felis.</h1>
-  <div id="short-para">
-    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.</p>
-    <p>Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.</p>
+<div class="grid_6" id="content">
+  <h1>Category.title</h1>
+  <table>
+      <tr>
+          <th>#</th>
+          <th>Topic.title</th>
+          <th>Topic.views</th>
+          <th>Topic.replies</th>
+          <th>Topic.info</th>
+      </tr>
+  
+   <tbody> 
+      <tr>
+          <td>1</td>
+          <td>jepun</td>
+          <td>100</td>
+          <td>33</td>
+          <td>Last posted by Azril on 13/12/2011</td>
+      </tr>
+    </tbody>  
+  </table>    
+  
+    <h1>Category.title</h1>
+  <table>
+      <tr>
+          <th>#</th>
+          <th>Topic.title</th>
+          <th>Topic.views</th>
+          <th>Topic.replies</th>
+          <th>Topic.info</th>
+      </tr>
+  
+   <tbody> 
+      <tr>
+          <td>1</td>
+          <td>jepun</td>
+          <td>100</td>
+          <td>33</td>
+          <td>Last posted by Azril on 13/12/2011</td>
+      </tr>
+    </tbody>  
+  </table>    
 
-    <p>Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.</p>
-    <h4> Quisque a lectus.</h4>
-    <p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
-    <p>Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.</p>
-    <p>Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.</p>
-    <p>Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euismod vel, velit. Pellentesque egestas sem. Suspendisse commodo ullamcorper magna.</p>
 
-  </div>
+
 </div>
-<div class="grid_2" id="photos">
-  <h2>Photo's</h2>
- 
+
+
+<div class="grid_4">
+  <h2>Latest Users</h2>
+  <ul>
+    <li>Azril</li>
+    <li>Fasha Sandha</li>
+    <li>Angelina Jolie</li>
+    <li>Rango</li>
+</ul>
+
+  <h2>Latest Topics</h2>
+  <ul>
+    
+    <li>Jepun Gempa</li>
+    <li>Jepun Gempa</li>
+    <li>Jepun Gempa</li>
+   </ul>
 </div>
+
+
 
 <div class="alpha omega grid_12" id="footer"></div>
 
