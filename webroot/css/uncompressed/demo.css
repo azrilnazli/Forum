@@ -1,5 +1,5 @@
 body {
-	background: #123;
+	background: #fff;
 	border-top: 5px solid #000;
 	color: #333;
 	font-size: 11px;
@@ -32,7 +32,7 @@ p {
 	padding: 10px 0;
 	text-align: center;
 }
-
+/**
 .container_12 {
 	background: #fff url(../../img/12_col.gif) repeat-y;
 	margin-bottom: 20px;
@@ -45,3 +45,4 @@ p {
 .container_24 {
 	background: #fff url(../../img/24_col.gif) repeat-y;
 }
+**/
