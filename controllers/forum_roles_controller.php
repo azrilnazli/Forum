@@ -11,4 +11,12 @@ Class ForumRolesController extends AppController{
 
     var $name = 'ForumRoles';
     var $scaffold;
+    
+    // callback before cake fire up view
+    function beforeRender(){
+        // only display certain fields
+        $fields = array('title','descriptions');// field name in table
+        $this->set('scaffoldFields' ,  $fields); // send to view
+    } // beforeRender()
+    
 } // ForumRole

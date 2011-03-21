@@ -11,4 +11,11 @@ Class ForumCategoriesController extends AppController{
 
     var $name = 'ForumCategories';
     var $scaffold;
+    
+    function beforeRender(){
+        // only display certain fields
+        $fields = array('staff_information_id','title','descriptions');// field name in table
+        $this->set('scaffoldFields' ,  $fields); // send to view
+    } // beforeRender()    
+    
 } // ForumCategories

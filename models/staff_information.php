@@ -10,6 +10,10 @@ Class StaffInformation extends AppModel{
     var $useTable = 'staff_informations';
     var $primaryKey = 'id';
     
+    // to show username in dropdown menu
+    // dropdown , index [ scaffold ]
+    var $displayField = 'username'; // field in table
+    
     var $belongsTo = array(
         'ForumRole'
     ); // belongsTo 
