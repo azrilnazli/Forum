@@ -10,7 +10,7 @@
 Class ForumCategoriesController extends AppController{
 
     var $name = 'ForumCategories';
-    var $scaffold;
+    var $scaffold = 'admin'; // admin routing 
     
     function beforeRender(){
         // only display certain fields

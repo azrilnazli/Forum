@@ -9,7 +9,8 @@
 Class StaffInformationsController extends AppController{
 
     var $name = 'StaffInformations';
-    var $scaffold;
+    var $scaffold = 'admin'; // admin routing 
+    
     // callback before cake fire up view
     
     function beforeRender(){

@@ -10,7 +10,7 @@
 Class ForumRolesController extends AppController{
 
     var $name = 'ForumRoles';
-    var $scaffold;
+    var $scaffold = 'admin'; // admin routing 
     
     // callback before cake fire up view
     function beforeRender(){
