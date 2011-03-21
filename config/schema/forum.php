@@ -114,7 +114,7 @@ var $forum_topics = array(
     'forum_category_id' => array('type' => 'integer'),    
     
     // ForumReply belongsTo ForumTopic
-    'forum_category_id' => array('type' => 'integer'),       
+    'forum_topic_id' => array('type' => 'integer'),       
     
     'title' => array('type' => 'string'),    
     'descriptions' => array('type' => 'text'),
