@@ -1,0 +1,37 @@
+General
+- created | datetime
+- modified | datetime
+- created_by  | integer
+- modified_by | integer
+
+StaffInformation | staff_informations
+- id | integer
+- forum_role_id | integer
+- username | string
+- password | string
+
+ForumRole | forum_roles
+- id | integer
+- title | string
+- descriptions
+
+
+ForumCategory | forum_categories
+- id | integer
+- staff_information_id | integer
+- title | string
+- descriptions | text
+
+ForumTopic | forum_topics
+- id | integer
+- staff_information_id | integer
+- forum_category_id | integer
+- title | string
+- body | text
+
+ForumReply | forum_replies
+- id | integer
+- staff_information_id | integer
+- forum_topic_id | integer
+- title | string
+- body | text
