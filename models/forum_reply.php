@@ -11,5 +11,14 @@ Class ForumReply extends AppModel{
     var $useDbConfig = 'default'; // check in database.php
     var $useTable = 'forum_replies';
     var $primaryKey = 'id';
+    
+    /**
+     * Model Relations
+    **/ 
+    var $belongsTo = array(
+        'StaffInformation',
+        'ForumCategory',
+        'ForumTopic',
+    ); // belongsTo        
 
 } // ForumReply Model

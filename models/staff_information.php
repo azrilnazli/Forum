@@ -9,5 +9,15 @@ Class StaffInformation extends AppModel{
     var $useDbConfig = 'default'; // check in database.php
     var $useTable = 'staff_informations';
     var $primaryKey = 'id';
-
+    
+    var $belongsTo = array(
+        'ForumRole'
+    ); // belongsTo 
+    
+    var $hasMany = array(
+        'ForumCategory',
+        'ForumTopic',
+        'ForumReply'
+    ); // hasMany
+    
 } // StaffInformationModel

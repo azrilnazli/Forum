@@ -11,5 +11,17 @@ Class ForumCategory extends AppModel{
     var $useDbConfig = 'default'; // check in database.php
     var $useTable = 'forum_categories';
     var $primaryKey = 'id';
+    
+    /**
+     * Model Relations
+    **/
+    var $hasMany = array(
+        'ForumTopic',
+        'ForumReply',
+    ); // hasMany        
+    
+    var $belongsTo = array(
+        'StaffInformation'
+    ); // belongsTo
 
 } // ForumCategory Model

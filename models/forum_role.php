@@ -11,5 +11,12 @@ Class ForumRole extends AppModel{
     var $useDbConfig = 'default'; // check in database.php
     var $useTable = 'forum_roles';
     var $primaryKey = 'id';
+    
+    /**
+     * Model Relations
+    **/
+    var $hasMany = array(
+        'StaffInformation',
+    ); // hasMany    
 
 } // ForumRole Model

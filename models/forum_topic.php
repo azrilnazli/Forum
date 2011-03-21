@@ -11,5 +11,19 @@ Class ForumTopic extends AppModel{
     var $useDbConfig = 'default'; // check in database.php
     var $useTable = 'forum_topics';
     var $primaryKey = 'id';
+    
+    /**
+     * Model Relations
+     * belongsTo , hasOne, hasMany, hasManyAndBelongsTo
+    **/
+    
+    var $belongsTo = array(
+        'StaffInformation',
+        'ForumCategory',
+    ); // belongsTo    
+    
+    var $hasMany = array(
+        'ForumReply',
+    ); // hasMany
 
 } // ForumTopic Model
