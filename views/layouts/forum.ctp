@@ -42,6 +42,11 @@ echo $this->Html->tag('h1', $header_link);
   <p>&nbsp;</p>
 </div>
 <div class="grid_6" id="content">
+  <div id ="breadcrumb">
+      <h2><strong>Forum &raquo; Home</strong></h2>
+  </div
+  
+  <div id ="category" style="padding:5px;background:yellow">
   <h1>Category.title</h1>
   <table>
       <tr>
@@ -62,7 +67,10 @@ echo $this->Html->tag('h1', $header_link);
       </tr>
     </tbody>  
   </table>    
+  </div>
   
+  <div id ="category" style="padding:5px;background:yellow;margin-top:20px">
+
     <h1>Category.title</h1>
   <table>
       <tr>
@@ -83,6 +91,7 @@ echo $this->Html->tag('h1', $header_link);
       </tr>
     </tbody>  
   </table>    
+  </div>
 
 
 
