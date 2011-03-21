@@ -14,7 +14,7 @@ Class ForumRepliesController extends AppController{
     
     function beforeRender(){
         // only display certain fields
-        $fields = array('staff_information_id','forum_category_id','forum_topic_id', 'title', 'descriptions');// field name in table
+        $fields = array('staff_information_id','forum_category_id','forum_topic_id', 'reply');// field name in table
         $this->set('scaffoldFields' ,  $fields); // send to view
     } // beforeRender()    
 

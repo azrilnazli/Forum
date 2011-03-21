@@ -116,8 +116,8 @@ var $forum_topics = array(
     // ForumReply belongsTo ForumTopic
     'forum_topic_id' => array('type' => 'integer'),       
     
-    'title' => array('type' => 'string'),    
-    'descriptions' => array('type' => 'text'),
+    #'title' => array('type' => 'string'),    
+    'reply' => array('type' => 'text'),
     
     // general fields
     'created' => array('type' => 'datetime'),
