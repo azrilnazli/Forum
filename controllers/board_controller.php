@@ -64,25 +64,28 @@ Class BoardController extends AppController {
                   'order' => 'id DESC'
               ), // ForumTopic
               
+                   /* ForumTopic.StaffInformation */
+              'ForumTopic.StaffInformation' => array(
+                  'fields' => array('username'),
+                  'limit' => 1, // limitkan data
+              ),  /* ForumTopic.StaffInformation */
+              
+              
                /* ForumReply.StaffInformation */
               'ForumReply.StaffInformation' => array(
                   'fields' => array('username'),
                   //'limit' => 1, // limitkan data 
               ), // ForumTopic
               
-               /* ForumTopic.StaffInformation */
-              'ForumTopic.StaffInformation' => array(
-                  'fields' => array('username'),
-                  'limit' => 1, // limitkan data
-              ),  /* ForumTopic.StaffInformation */
+          
               
                /* ForumTopic.StaffInformation.ForumRole */
               //'ForumTopic.StaffInformation.ForumRole' => array(
             
-              'StaffInformation.ForumRole' => array(
-                   'fields' => array('title'),
-                   'limit' => 1, // limitkan data
-              ),  /* ForumTopic.StaffInformation.ForumRole */              
+              //'StaffInformation.ForumRole' => array(
+              //     'fields' => array('title'),
+              //     'limit' => 1, // limitkan data
+              //),  /* ForumTopic.StaffInformation.ForumRole */              
         ); // contain
 
        

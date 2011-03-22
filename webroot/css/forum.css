@@ -37,8 +37,28 @@ h1 a{
     padding: 10px;
 }
 
+#category table th#number{
+  text-align: center;
+}
+#category table th#topic{
+  width: auto;
+}
+
+#category table th#last-reply{
+  width: 200px;
+}
+
+#category #title{
+  font-weight: bold;
+}
+
+#category #last-poster{
+  font-weight: bold;
+  color: red;
+}
 #category table {
     width: 100%;
+    
 }
 
 #category   tr { 

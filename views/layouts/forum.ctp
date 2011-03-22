@@ -52,9 +52,9 @@ echo $this->Html->tag('h1', $header_link);
   <h1><?php echo $c['ForumCategory']['title'] ?></h1>  
   <table>
       <tr>
-          <th></th>
-          <th>Topic</th>
-          <th>Last Reply</th>
+          <th id="number">&nbsp;#</th>
+          <th id="topic">Topic</th>
+          <th id="last-reply">Last Reply</th>
       </tr>
     
    <?php FOREACH($c['ForumTopic'] as $k => $t): 
@@ -63,8 +63,8 @@ echo $this->Html->tag('h1', $header_link);
    <tbody> 
       <tr>
           <td><?php echo $k+1; ?></td>
-          <td><?php echo $t['title']; ?></td>
-          <td>
+          <td><?php echo "<span id='title'>{$t['title']}</span> posted by <span id='last-poster'>{$t['StaffInformation']['username']}" ?></span></td>
+          <td id="reply">
           <?php 
           if(!empty($t['ForumReply'][0])):
         
