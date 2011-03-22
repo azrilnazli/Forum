@@ -60,7 +60,11 @@ h1 a{
 }
 #category table {
     width: 100%;
-    
+    border-top: 5px #000 solid;
+    border-bottom: 5px #000 solid;
+    border-left: 2px #000 solid;
+    border-right: 2px #000 solid;
+   
 }
 
 #category   tr { 
@@ -68,7 +72,7 @@ h1 a{
 }
 
 #category   th { 
-    background-color: purple;
+    background-color: green;
     color: white;
     font-size: 2em;
     font-weight: bold;

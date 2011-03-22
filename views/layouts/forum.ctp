@@ -8,7 +8,7 @@ echo $this->Html->css( array(
                                       'reset',
                                       'text',
                                       '960',
-                                     // 'uncompressed/demo',
+                                     //'uncompressed/demo',
                                       'forum',
                                      'debug'
                                     ) ) ;
@@ -27,7 +27,8 @@ echo $this->Html->tag('h1', $header_link);
 ?>
 </div>
 
-<div class="grid_2 alpha" id="sidebar">
+<div class="grid_2 alpha" >
+<div id="sidebar">
 <h2>Sidebar</h2>
   <ul>
     <li>Home</li>
@@ -39,7 +40,29 @@ echo $this->Html->tag('h1', $header_link);
     <li>Sign Up</li>
     <li>Forgot Password</li>  
 </ul>
+</div>
   <p>&nbsp;</p>
+  <div id="sidebar">
+      <h2>Statistics</h2>
+        <ol style="list-style-type:none; margin-left:-20px">
+        <?php FOREACH($stat as $k=>$v): ?>
+        <?php #echo $this->Html->tag('li', sprintf("%s : %s", ucFirst($k), $v)); ?>
+        <li><?php echo ucfirst($k); ?> : <?php echo $v; ?></li>
+        <?php ENDFOREACH; ?>
+        </ol>
+  </div>
+  
+  <p>&nbsp;</p>
+  <div id="sidebar">
+      <h2>Users</h2>
+        <ol>
+        <?php FOREACH($users as $k=>$v):?>
+        <?php echo $this->Html->tag('li', $v['StaffInformation']['username']); ?>
+        <?php ENDFOREACH; ?>
+        </ol>
+  </div>
+
+  
 </div>
 
 <div class="grid_10 " id="content">

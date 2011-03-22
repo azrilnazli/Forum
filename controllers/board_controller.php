@@ -88,33 +88,25 @@ Class BoardController extends AppController {
               //),  /* ForumTopic.StaffInformation.ForumRole */              
         ); // contain
 
-       
-        //$options['fields'] = 'ForumCategory.id,ForumCategory.title';
-        
         $categories = $this->ForumCategory->find('all', $options);
-        //debug($categories);
         
-        # cara 1
-        //$this->set('categories' , $categories);
+        // Statistics
+        $stat['user'] = $this->ForumCategory->StaffInformation->find('count');
+        $stat['category'] = $this->ForumCategory->find('count');
+        $stat['topic'] = $this->ForumCategory->ForumTopic->find('count');
+        $stat['reply'] = $this->ForumCategory->ForumTopic->ForumReply->find('count');
         
-        # cara 2, data berbentuk array sahaja
-        $this->set(compact('categories'));
+        // Last 5 Users
+        $options['limit'] = 5;
+        $options['order'] = 'StaffInformation.id DESC';
+        $options['fields'] = 'id,username,created';
+        $options['recursive'] = -1;
+        $users = $this->ForumCategory->StaffInformation->find('all', $options);
+        //debug($users);
+        //debug($stat);
         
-        # cara 3,
-        //$this->data['categories'] = $categories;
-        
-        // Chaining
-        //$topics = $this->ForumCategory->ForumTopic->find('all');
-        //debug( $topics );
-        
-        //$replies =  $this->ForumCategory->ForumTopic->ForumReply->find('all');
-        //debug($replies);
-        
-        //$staffs = $this->ForumCategory->StaffInformation->find('all');
-        //debug($staffs);
-        //pr()
-        //var_dump();
-    
+        // Register to View
+        $this->set(compact('categories','stat','users'));
     }
 
 } // BoardController
