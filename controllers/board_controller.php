@@ -53,8 +53,21 @@ Class BoardController extends AppController {
  
               /* ForumTopic */
               'ForumTopic' => array(
-                  'fields' => array('title','created'),
+                  'fields' => array('id','title','created'),
                   'limit' => 10, // limitkan data 
+              ), // ForumTopic
+              
+              /* ForumTopic.ForumReply */
+              'ForumTopic.ForumReply' => array(
+                  'fields' => array('created'),
+                  'limit' => 1, // limitkan data 
+                  'order' => 'id DESC'
+              ), // ForumTopic
+              
+               /* ForumReply.StaffInformation */
+              'ForumReply.StaffInformation' => array(
+                  'fields' => array('username'),
+                  //'limit' => 1, // limitkan data 
               ), // ForumTopic
               
                /* ForumTopic.StaffInformation */

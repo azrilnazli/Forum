@@ -44,7 +44,9 @@ echo $this->Html->tag('h1', $header_link);
 
 <div class="grid_10 " id="content">
 
-<?php FOREACH($categories as $c): ?>
+<?php FOREACH($categories as $c): 
+//debug($c);
+?>
 
   <div id ="category"> 
   <h1><?php echo $c['ForumCategory']['title'] ?></h1>  
@@ -52,23 +54,31 @@ echo $this->Html->tag('h1', $header_link);
       <tr>
           <th></th>
           <th>Topic</th>
-          <th>Last by</th>
+          <th>Last Reply</th>
       </tr>
     
-   <?php FOREACH($c['ForumTopic'] as $k => $t): ?>
+   <?php FOREACH($c['ForumTopic'] as $k => $t): 
+   //debug($t);
+   ?>
    <tbody> 
       <tr>
           <td><?php echo $k+1; ?></td>
           <td><?php echo $t['title']; ?></td>
           <td>
           <?php 
+          if(!empty($t['ForumReply'][0])):
+        
           echo sprintf (
-              "<b>%s</b> [ %s ] on %s",
+              "<b>%s</b> on %s",
               
-              Inflector::humanize($t['StaffInformation']['username']),
-              Inflector::humanize($t['StaffInformation']['ForumRole']['title']),
-              $this->Time->format('d/m/Y',$t['created']) 
-          )
+              Inflector::humanize($t['ForumReply'][0]['StaffInformation']['username']),
+              $this->Time->format('d/m/Y',$t['ForumReply'][0]['created']) 
+          );
+          else:
+          
+            echo 'No reply yet';
+          
+          endif;// check ForumReply
           ?>
           </td>
       </tr>
