@@ -42,44 +42,12 @@ echo $this->Html->tag('h1', $header_link);
   <p>&nbsp;</p>
 </div>
 
-<div class="grid_10" id="content">
+<div class="grid_10 " id="content">
 
 <?php FOREACH($categories as $c): ?>
-<div id="category">
- <h1><?php echo $c['ForumCategory']['title'] ?></h1>
 
-<div class="grid_6" id="content">
-  <div id ="breadcrumb">
-      <h2><strong>Forum &raquo; Home</strong></h2>
-  </div
-  
-  <div id ="category" style="padding:5px;background:yellow">
-  <h1>Category.title</h1>
-  <table>
-      <tr>
-          <th>#</th>
-          <th>Topic.title</th>
-          <th>Topic.views</th>
-          <th>Topic.replies</th>
-          <th>Topic.info</th>
-      </tr>
-  
-   <tbody> 
-      <tr>
-          <td>1</td>
-          <td>jepun</td>
-          <td>100</td>
-          <td>33</td>
-          <td>Last posted by Azril on 13/12/2011</td>
-      </tr>
-    </tbody>  
-  </table>    
-  </div>
-  
-  <div id ="category" style="padding:5px;background:yellow;margin-top:20px">
-
-    <h1>Category.title</h1>
-
+  <div id ="category"> 
+  <h1><?php echo $c['ForumCategory']['title'] ?></h1>  
   <table>
       <tr>
           <th></th>
