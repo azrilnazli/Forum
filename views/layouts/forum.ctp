@@ -67,6 +67,14 @@ echo $this->Html->tag('h1', $header_link);
 
 <div class="grid_10 " id="content">
 
+<div id="breadcrumb">
+<?php
+$this->Html->addCrumb('Home', '/');
+echo $this->Html->getCrumbs('&raquo;',null,  array('escape' => FALSE));
+?>
+</div>
+<p></p>
+
 <?php FOREACH($categories as $c): 
 //debug($c);
 ?>
@@ -132,7 +140,12 @@ echo $this->Html->tag('h1', $header_link);
                         posted by {$v['StaffInformation']['username']}
                         
                         "; ?></td>
-              <td style="width:200px"><?php echo $this->Time->timeAgoInWords($v['ForumTopic']['created']) ?></td>
+              <td style="width:200px">
+              <?php 
+                echo $this->Time->timeAgoInWords($v['ForumTopic']['created']) 
+              ?>
+              
+              </td>
           </tr>          
           <?php ENDFOREACH; ?>
       </table

@@ -39,6 +39,16 @@ h1 a{
     border-bottom: 10px lightblue solid;
 }
 
+#breadcrumb { 
+    background-color: blue;
+    padding: 10px;
+    border: 10px yellow solid;
+}#breadcrumb a{
+    color: white;
+    font-size: 2em;
+    
+}
+
 #category table th#number{
   text-align: center;
 }

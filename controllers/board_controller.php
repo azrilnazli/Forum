@@ -129,7 +129,7 @@ Class BoardController extends AppController {
         $this->ForumCategory->ForumTopic->Behaviors->attach('Containable');
 
         $topics = $this->ForumCategory->ForumTopic->find('all', $options);
-         debug($topics);
+         //debug($topics);
         
         // Register to View
         $this->set(compact('categories','stat','users','topics'));
