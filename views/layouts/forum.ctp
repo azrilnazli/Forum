@@ -10,7 +10,7 @@ echo $this->Html->css( array(
                                       '960',
                                      // 'uncompressed/demo',
                                       'forum',
-                                     // 'debug'
+                                     'debug'
                                     ) ) ;
 
 ?>
@@ -41,6 +41,13 @@ echo $this->Html->tag('h1', $header_link);
 </ul>
   <p>&nbsp;</p>
 </div>
+
+<div class="grid_10" id="content">
+
+<?php FOREACH($categories as $c): ?>
+<div id="category">
+ <h1><?php echo $c['ForumCategory']['title'] ?></h1>
+
 <div class="grid_6" id="content">
   <div id ="breadcrumb">
       <h2><strong>Forum &raquo; Home</strong></h2>
@@ -72,57 +79,58 @@ echo $this->Html->tag('h1', $header_link);
   <div id ="category" style="padding:5px;background:yellow;margin-top:20px">
 
     <h1>Category.title</h1>
+
   <table>
       <tr>
-          <th>#</th>
-          <th>Topic.title</th>
-          <th>Topic.views</th>
-          <th>Topic.replies</th>
-          <th>Topic.info</th>
+          <th></th>
+          <th>Topic</th>
+          <th>Last by</th>
       </tr>
-  
+    
+   <?php FOREACH($c['ForumTopic'] as $k => $t): ?>
    <tbody> 
       <tr>
-          <td>1</td>
-          <td>jepun</td>
-          <td>100</td>
-          <td>33</td>
-          <td>Last posted by Azril on 13/12/2011</td>
+          <td><?php echo $k+1; ?></td>
+          <td><?php echo $t['title']; ?></td>
+          <td>
+          <?php 
+          echo sprintf (
+              "<b>%s</b> [ %s ] on %s",
+              
+              Inflector::humanize($t['StaffInformation']['username']),
+              Inflector::humanize($t['StaffInformation']['ForumRole']['title']),
+              $this->Time->format('d/m/Y',$t['created']) 
+          )
+          ?>
+          </td>
       </tr>
+
+    </tbody>   
+    <?php ENDFOREACH; // $topic?>
+  </table>  
+  </div> <!-- #category -->
+  <?php ENDFOREACH; // $categories?>
+
     </tbody>  
   </table>    
   </div>
 
 
 
+
 </div>
 
 
-<div class="grid_4">
-  <h2>Latest Users</h2>
-  <ul>
-    <li>Azril</li>
-    <li>Fasha Sandha</li>
-    <li>Angelina Jolie</li>
-    <li>Rango</li>
-</ul>
-
-  <h2>Latest Topics</h2>
-  <ul>
-    
-    <li>Jepun Gempa</li>
-    <li>Jepun Gempa</li>
-    <li>Jepun Gempa</li>
-   </ul>
-</div>
 
 
 
 <div class="alpha omega grid_12" id="footer"></div>
 
-</div>
+
+<div class="clear"></div>
+<?php echo $this->Element('sql_dump'); // show sql ?>
 
 
 </body>
-<?php echo $this->Element('sql_dump'); // show sql ?>
+
 </html>
