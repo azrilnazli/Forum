@@ -36,7 +36,7 @@ h1 a{
 #category { 
     background-color: yellow;
     padding: 10px;
-    border: 5px lightblue solid;
+    border-bottom: 10px lightblue solid;
 }
 
 #category table th#number{
