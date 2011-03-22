@@ -11,6 +11,8 @@ Class BoardController extends AppController {
     var $name = 'Board';
     var $uses = NULL; // no database yet
     var $layout = 'forum'; // APP/views/layouts/forum.ctp
+    //var $helpers = array('Cache');
+    //var $cacheAction  = "1 hour";
  
     
     //var $uses = array('ForumCategory'); // load Model
@@ -25,6 +27,10 @@ Class BoardController extends AppController {
      **/
     function index(){
         $this->helpers[] = 'Time'; // load Time Helper
+        $this->helpers[] = 'Cache'; // load Cache Helper
+        $this->cacheAction = "1 hour"; // set 1 hour cache
+
+        
         # Load Model Dynamically
         # App::import('Model', 'ModelName') 
         App::import('Model', 'ForumCategory'); // import Model
@@ -76,9 +82,7 @@ Class BoardController extends AppController {
                   'fields' => array('username'),
                   //'limit' => 1, // limitkan data 
               ), // ForumTopic
-              
-          
-              
+
                /* ForumTopic.StaffInformation.ForumRole */
               //'ForumTopic.StaffInformation.ForumRole' => array(
             
@@ -105,8 +109,30 @@ Class BoardController extends AppController {
         //debug($users);
         //debug($stat);
         
+        // Last 10 topics
+        unset($options); // reset $options
+        $options['limit'] = 10;
+        $options['order'] = 'ForumTopic.id DESC';
+        $options['fields'] = 'ForumTopic.id, ForumTopic.title, ForumTopic.created';
+        //$options['recursive'] = -1;
+        $options['contain'] = array(
+            'StaffInformation' => array(
+                'fields' => array('id','username')
+            ), // StaffInformation
+            
+            'ForumCategory' => array(
+                'fields' => array('id','title','created'),
+            )// ForumCategory
+        
+        ); // contain
+        # Containable On The Fly
+        $this->ForumCategory->ForumTopic->Behaviors->attach('Containable');
+
+        $topics = $this->ForumCategory->ForumTopic->find('all', $options);
+         debug($topics);
+        
         // Register to View
-        $this->set(compact('categories','stat','users'));
+        $this->set(compact('categories','stat','users','topics'));
     }
 
 } // BoardController
