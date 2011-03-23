@@ -18,7 +18,6 @@ echo $this->Html->css( array(
 <body>
 <div class="container_12">
 <div class="alpha omega grid_12" id="userpanel">
-panel
 </div>
 
 <div class="alpha omega grid_12" id="header">
