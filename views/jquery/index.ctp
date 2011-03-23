@@ -10,11 +10,11 @@ $(document).ready(  function(){
     $('#JobOther').bind('click', function(){
             // show #other-job
             $('#other-job').show();
-     }) // bind
+     }); // bind
     $('#JobOther').bind('blur', function(){
             // show #other-job
-            $('#other-job').hide();
-     }) // bind
+            //$('#other-job').hide();
+     }); // bind
  
 });//ready
 </script>

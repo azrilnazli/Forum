@@ -68,16 +68,15 @@ echo $this->Html->tag('h1', $header_link);
 <div class="grid_10 " id="content">
 
 <div id="breadcrumb">
-<?php
-$this->Html->addCrumb('Home', '/');
-echo $this->Html->getCrumbs('&raquo;',null,  array('escape' => FALSE));
-?>
+      <?php
+       $this->Html->addCrumb('Index');
+      echo $this->Html->getCrumbs(' > ','FORUM');
+      ?>
 </div>
+
 <p></p>
 
-<?php FOREACH($categories as $c): 
-//debug($c);
-?>
+<?php FOREACH($categories as $c): //debug($c); ?>
 
   <div id ="category"> 
   <h1><?php echo $c['ForumCategory']['title'] ?></h1>  
