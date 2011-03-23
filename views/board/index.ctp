@@ -15,7 +15,7 @@
   $options['controller'] = 'Board';
   $options['action'] = 'category';
   $options['category_id'] = $c['ForumCategory']['id']; // passing variable
-  $options['category_title'] = Inflector::slug($c['ForumCategory']['title'], '-'); // passing variable
+  //$options['category_title'] = Inflector::slug($c['ForumCategory']['title'], '-'); // passing variable
   
   echo $this->Html->link( 
                 $c['ForumCategory']['title'], // title
