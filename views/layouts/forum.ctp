@@ -34,6 +34,7 @@ echo $this->Html->tag('h1', $header_link);
 <?php $this->SiteModule->users() ?>
 <p>&nbsp;</p>
 <?php $this->SiteModule->statistics() ?>
+
   
 </div>
 
@@ -41,7 +42,9 @@ echo $this->Html->tag('h1', $header_link);
     <?php echo $content_for_layout; ?>
 </div>
 
-<div class="alpha omega grid_12" id="footer"></div>
+<div class="alpha omega grid_12" id="footer">
+<p>Copyright JPN</p>
+</div>
 
 <div class="clear"></div>
 <?php echo $this->Element('sql_dump'); // show sql ?>

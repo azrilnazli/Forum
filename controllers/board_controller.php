@@ -96,32 +96,8 @@ Class BoardController extends AppController {
 
         $categories = $this->ForumCategory->find('all', $options);
         
-  
-        
-        // Last 10 topics
-        unset($options); // reset $options
-        $options['limit'] = 10;
-        $options['order'] = 'ForumTopic.id DESC';
-        $options['fields'] = 'ForumTopic.id, ForumTopic.title, ForumTopic.created';
-        //$options['recursive'] = -1;
-        $options['contain'] = array(
-            'StaffInformation' => array(
-                'fields' => array('id','username')
-            ), // StaffInformation
-            
-            'ForumCategory' => array(
-                'fields' => array('id','title','created'),
-            )// ForumCategory
-        
-        ); // contain
-        # Containable On The Fly
-        $this->ForumCategory->ForumTopic->Behaviors->attach('Containable');
-
-        $topics = $this->ForumCategory->ForumTopic->find('all', $options);
-         //debug($topics);
-        
         // Register to View
-        $this->set(compact('categories','topics'));
+        $this->set(compact('categories'));
     }
 
    /**
