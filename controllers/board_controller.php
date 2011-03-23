@@ -12,6 +12,7 @@ Class BoardController extends AppController {
     var $uses = 'ForumCategory'; // no database yet
     var $layout = 'forum'; // APP/views/layouts/forum.ctp
     var $helpers = array(
+                            'Time', // Load Time Helper
                             'SiteModule' // Our custom Helpers
                             );
     //var $cacheAction  = "1 hour";
