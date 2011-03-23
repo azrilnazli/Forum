@@ -11,7 +11,9 @@ Class BoardController extends AppController {
     var $name = 'Board';
     var $uses = NULL; // no database yet
     var $layout = 'forum'; // APP/views/layouts/forum.ctp
-    //var $helpers = array('Cache');
+    var $helpers = array(
+                            'SiteModule' // Our custom Helpers
+                            );
     //var $cacheAction  = "1 hour";
  
     
@@ -94,20 +96,7 @@ Class BoardController extends AppController {
 
         $categories = $this->ForumCategory->find('all', $options);
         
-        // Statistics
-        $stat['user'] = $this->ForumCategory->StaffInformation->find('count');
-        $stat['category'] = $this->ForumCategory->find('count');
-        $stat['topic'] = $this->ForumCategory->ForumTopic->find('count');
-        $stat['reply'] = $this->ForumCategory->ForumTopic->ForumReply->find('count');
-        
-        // Last 5 Users
-        $options['limit'] = 5;
-        $options['order'] = 'StaffInformation.id DESC';
-        $options['fields'] = 'id,username,created';
-        $options['recursive'] = -1;
-        $users = $this->ForumCategory->StaffInformation->find('all', $options);
-        //debug($users);
-        //debug($stat);
+  
         
         // Last 10 topics
         unset($options); // reset $options
@@ -132,11 +121,15 @@ Class BoardController extends AppController {
          //debug($topics);
         
         // Register to View
-        $this->set(compact('categories','stat','users','topics'));
+        $this->set(compact('categories','topics'));
     }
-    
-    function category(){
-    
-    }
+
+   /**
+     *  Displaykan Category
+     *  Senaraikan Topic berdasarkan Category yang dipilih
+     *  @author Azril Nazli Alias
+     *  view | APP/views/board/category.ctp
+     **/    
+    function category(){ }
 
 } // BoardController
