@@ -134,6 +134,6 @@ Class SiteModuleHelper extends AppHelper{
         $this->View =& ClassRegistry::getObject('view');
         
         // display using element APP/views/elements/recent_topics.ctp
-        echo  $this->View->element('recent_topics', array('topics' , $topics)  ); 
+        echo  $this->View->element('recent_topics', array('topics' => $topics)  ); 
     }
 }

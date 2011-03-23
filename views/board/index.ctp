@@ -1,7 +1,7 @@
 <div id="breadcrumb">
       <?php
        $this->Html->addCrumb('Index');
-      echo $this->Html->getCrumbs(' > ','FORUM');
+      echo $this->Html->getCrumbs(' > ','Forum');
       ?>
 </div>
 
@@ -10,7 +10,22 @@
 <?php FOREACH($categories as $c): //debug($c); ?>
 
   <div id ="category"> 
-  <h1><?php echo $c['ForumCategory']['title'] ?></h1>  
+  <h1>
+  <?php 
+  $options['controller'] = 'Board';
+  $options['action'] = 'category';
+  $options['category_id'] = $c['ForumCategory']['id']; // passing variable
+  $options['category_title'] = Inflector::slug($c['ForumCategory']['title'], '-'); // passing variable
+  
+  echo $this->Html->link( 
+                $c['ForumCategory']['title'], // title
+                $options // options
+                ) // link()
+  ?>
+  
+  </h1>  
+  
+  
   <table>
       <tr>
           <th id="number">&nbsp;#</th>
@@ -55,7 +70,3 @@
       $this->SiteModule->recent_topics(); 
   ?>
   
-    </tbody>  
-  </table>    
-  </div>
-

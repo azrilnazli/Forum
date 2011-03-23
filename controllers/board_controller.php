@@ -9,7 +9,7 @@
 Class BoardController extends AppController {
 
     var $name = 'Board';
-    var $uses = NULL; // no database yet
+    var $uses = 'ForumCategory'; // no database yet
     var $layout = 'forum'; // APP/views/layouts/forum.ctp
     var $helpers = array(
                             'SiteModule' // Our custom Helpers
@@ -35,8 +35,8 @@ Class BoardController extends AppController {
         
         # Load Model Dynamically
         # App::import('Model', 'ModelName') 
-        App::import('Model', 'ForumCategory'); // import Model
-        $this->ForumCategory = new ForumCategory(); // initialize kan object
+        //App::import('Model', 'ForumCategory'); // import Model
+        //$this->ForumCategory = new ForumCategory(); // initialize kan object
     
         # Containable On The Fly
         $this->ForumCategory->Behaviors->attach('Containable');
@@ -106,6 +106,69 @@ Class BoardController extends AppController {
      *  @author Azril Nazli Alias
      *  view | APP/views/board/category.ctp
      **/    
-    function category(){ }
+    function category(){
+     // get passed id from URL
+     $category_id = $this->passedArgs['category_id'];
+     //debug($category_id);
+     
+     // search Model using given $category_id
+     $options['conditions'] = array('ForumCategory.id' => $category_id );
+     $count = $this->ForumCategory->find('count', $options);
+     //debug($category);
+     
+     // check if $category is valid   
+     if($count == 0 ){
+          $this->Session->setFlash('Invalid Category');
+          $this->redirect('index');
+      } // check $category is valid
+     
+     // construct options for displaying Topic berdasarkan Category
+     unset($options); // reset $options
+     $options['order'] = 'ForumTopic.id DESC';
+     $options['recursive'] = 2;
+     $options['conditions'] =  array('ForumTopic.forum_category_id' => $category_id );
+     $options['fields'] = array('id','title','created');
+     
+     // turn on Containable on ForumTopic
+     $this->ForumCategory->ForumTopic->Behaviors->attach('Containable');
+     // construct options for Containable
+     $options['contain'] = array(
+         
+         /** ForumCategory **/
+         'ForumCategory' => array(
+            'fields' => array('title')
+         ), 
+         /** StaffInformation **/
+         'StaffInformation' => array(
+            'fields' => array('id','username')
+         ),
+
+         /** ForumReply **/
+         'ForumReply' => array(
+            'fields' => array('created'),
+            'order' => 'id DESC' ,
+            'limit' => 1
+         ),         
+         
+         /** ForumReply.StaffInformation **/
+          'ForumReply.StaffInformation' => array(
+              'fields' => array('id','username'),
+          )    
+     ); // contain
+
+     
+     // get the data
+     $topics =  $this->ForumCategory->ForumTopic->find('all' , $options);
+     //debug($topics);
+     
+     // get category title only
+     $this->ForumCategory->recursive = -1;
+     $title = $this->ForumCategory->read('title', $category_id);
+     //debug($title);
+     $this->set('title', $title['ForumCategory']['title'] );
+     
+     // send to view
+     $this->set(compact('topics'));
+    } // category()
 
 } // BoardController

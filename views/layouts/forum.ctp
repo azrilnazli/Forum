@@ -16,8 +16,10 @@ echo $this->Html->css( array(
 ?>
 </head>
 <body>
-
 <div class="container_12">
+<div class="alpha omega grid_12" id="userpanel">
+panel
+</div>
 
 <div class="alpha omega grid_12" id="header">
 <?php 
@@ -34,9 +36,15 @@ echo $this->Html->tag('h1', $header_link);
 <?php $this->SiteModule->users() ?>
 <p>&nbsp;</p>
 <?php $this->SiteModule->statistics() ?>
-
-  
 </div>
+
+<?php IF( $this->Session->check('Message.flash') ): ?>
+      <!-- MESSAGE -->
+      <div class="grid_10 ">
+          <?php echo $this->Session->flash(); ?>
+      </div>
+      <!-- MESSAGE -->
+<?php ENDIF; ?>
 
 <div class="grid_10 " id="content">
     <?php echo $content_for_layout; ?>
