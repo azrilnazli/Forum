@@ -134,5 +134,9 @@ Class BoardController extends AppController {
         // Register to View
         $this->set(compact('categories','stat','users','topics'));
     }
+    
+    function category(){
+    
+    }
 
 } // BoardController
