@@ -39,6 +39,12 @@ h1 a{
     border-bottom: 10px lightblue solid;
 }
 
+#category a {
+  color: white;
+}
+#category a:hover {
+  color: yellow;
+}
 
 /** Flash Message **/
 #flashMessage { 

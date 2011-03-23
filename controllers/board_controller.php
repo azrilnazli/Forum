@@ -172,4 +172,49 @@ Class BoardController extends AppController {
      $this->set(compact('topics'));
     } // category()
 
+    /**
+     * Displaykan topic dan juga reply yang berkaitan
+     *
+     *  @author Azril Nazli Alias
+     *  view | APP/views/board/topic.ctp
+     **/   
+    function topic(){
+     // get passed id from URL
+     $topic_id = $this->passedArgs['topic_id'];
+     
+     // search Model using given $category_id
+     $options['conditions'] = array('ForumTopic.id' => $topic_id );
+     $count = $this->ForumCategory->ForumTopic->find('count', $options);
+
+     
+     // check if $category is valid   
+     if($count == 0 ){
+          $this->Session->setFlash('Invalid Topic');
+          $this->redirect('index');
+      } // check $category is valid    
+   
+    
+      # breadcrumb data
+      $options['recursive'] = 1;
+      $options['conditions'] = array('ForumTopic.id' =>  $topic_id );
+      $options['fields'] = array('ForumTopic.title' );
+      
+      # hidupkan Containable
+      $this->ForumCategory->ForumTopic->Behaviors->attach('Containable');
+      $options['contain'] = array(
+          'ForumCategory' => array(
+              'fields' => array('title')
+          ) // ForumCategory
+      ); // Contain
+      
+      $topic = $this->ForumCategory->ForumTopic->find('first', $options);
+      //debug($topic);
+      $category['title']  = $topic['ForumCategory']['title'] ;
+      $category['id'] = $topic['ForumCategory']['id'] ;
+      $this->set('category' , $category);
+      $this->set('title' , $topic['ForumTopic']['title'] );
+      
+      
+   } // topic()       
+    
 } // BoardController
