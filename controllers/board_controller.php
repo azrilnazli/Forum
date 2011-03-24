@@ -20,6 +20,11 @@ Class BoardController extends AppController {
     
     //var $uses = array('ForumCategory'); // load Model
     
+    function beforeFilter(){
+        parent::beforeFilter();
+        $this->Auth->allow(array('*') );
+    }
+    
     /**
      *  Displaykan muka depan Forum
      *  Senaraikan Category
