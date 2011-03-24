@@ -194,26 +194,78 @@ Class BoardController extends AppController {
       } // check $category is valid    
    
     
-      # breadcrumb data
+      # breadcrumb & topic data
       $options['recursive'] = 1;
       $options['conditions'] = array('ForumTopic.id' =>  $topic_id );
-      $options['fields'] = array('ForumTopic.title' );
+      $options['fields'] = array(
+                                  'ForumTopic.title',
+                                  'ForumTopic.descriptions',
+                                  'ForumTopic.created'
+                                  );
       
       # hidupkan Containable
       $this->ForumCategory->ForumTopic->Behaviors->attach('Containable');
       $options['contain'] = array(
-          'ForumCategory' => array(
+         
+          /** Forum Category **/
+         'ForumCategory' => array(
               'fields' => array('title')
-          ) // ForumCategory
+          ), // ForumCategory
+          
+
+          /** Staff Information **/
+         'StaffInformation' => array(
+              'fields' => array('id', 'username')
+          ) // StaffInformation          
+          
       ); // Contain
       
       $topic = $this->ForumCategory->ForumTopic->find('first', $options);
       //debug($topic);
-      $category['title']  = $topic['ForumCategory']['title'] ;
-      $category['id'] = $topic['ForumCategory']['id'] ;
-      $this->set('category' , $category);
-      $this->set('title' , $topic['ForumTopic']['title'] );
+      //$category['title']  = $topic['ForumCategory']['title'] ;
+      //$category['id'] = $topic['ForumCategory']['id'] ;
+      //$this->set('category' , $category);
+      //$this->set('title' , $topic['ForumTopic']['title'] );
       
+       $this->set('topic' , $topic);
+      
+      //debug($topic);
+      
+      /** Replies based on given topic_id **/
+      /*******************************************/
+      unset($options); // reset $options
+      $options['recursive'] = 3;
+      $options['conditions'] = array('ForumReply.forum_topic_id' =>  $topic_id );
+      
+      $options['fields'] = array(
+                                  'ForumReply.reply',
+                                  'ForumReply.created',
+                                  'ForumReply.staff_information_id',
+                                  );
+                                  
+      # hidupkan Containable
+      $this->ForumCategory->ForumTopic->ForumReply->Behaviors->attach('Containable');
+      $options['contain'] = array(
+         
+          /** Staff Information **/
+         'StaffInformation' => array(
+              'fields' => array('id', 'username')
+          ), // StaffInformation      
+          
+        
+        /** Staff Information > Forum Role **/
+        'StaffInformation.ForumRole' => array(
+                   'fields' => array('title'),
+                   'limit' => 1, // limitkan data
+              ),  /* ForumTopic.StaffInformation.ForumRole */                       
+        ); // contain
+
+      
+      // execute the call
+      $replies = $this->ForumCategory->ForumTopic->ForumReply->find('all', $options);
+      debug($replies);
+      $this->set(compact('replies'));
+     
       
    } // topic()       
     

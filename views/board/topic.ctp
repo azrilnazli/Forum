@@ -1,11 +1,12 @@
+<?php echo $this->Html->css('topic') ?>
 <div id="breadcrumb">
       <?php       
        $options['controller'] = 'Board';
        $options['action'] = 'category';
-       $options['category_id'] = $category['id'];
-       $this->Html->addCrumb($category['title'], $options);
+       $options['category_id'] = $topic['ForumCategory']['id'];
+       $this->Html->addCrumb($topic['ForumCategory']['title'], $options);
       
-      $this->Html->addCrumb($title);
+      $this->Html->addCrumb($topic['ForumTopic']['title']);
        
        echo $this->Html->getCrumbs(' > ','Forum');
       ?>
@@ -19,20 +20,37 @@
       <table width="100%">
       <tr>
       <td>
-          <span id="title">Topic.title</span>
+          <span id="title"><?php echo $topic['ForumTopic']['title']; ?></span>
           <br />
-          <span id="poster">Topic.poster</span>
-          <br />
-          <span id="created">Topic.created</span>
+          <span id="poster">  Posted by  <?php echo $topic['StaffInformation']['username']; ?></span>
+          <span id="created"><?php echo $topic['ForumTopic']['created']; ?></span>
         </td>  
       </table>
   </div><!-- .header -->
   
   <div class = "body">
-  isi kandung topik
-  </div><!-- .body -->
-  
+ 
+ <span id ="descriptions">
+      <?php echo $topic['ForumTopic']['descriptions']; ?>
+  </span>
+  </div><!-- .body --> 
 </div> <!-- #topic -->
-
-
 <p></p>
+
+<?php FOREACH( $replies as  $v ):
+//debug($v);
+ ?>
+<div id = "reply">
+  <div class="header">
+  
+  reply by
+  <?php echo $v['StaffInformation']['username'] ?>
+  <?php echo $v['ForumReply']['created'] ?>
+  </div>
+  <div class="body"> <?php echo $v['ForumReply']['reply'] ?></div>
+</div><!-- #reply -->
+<?php ENDFOREACH; ?>
+
+
+
+
