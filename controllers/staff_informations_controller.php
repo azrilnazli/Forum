@@ -12,7 +12,7 @@ Class StaffInformationsController extends AppController{
     var $scaffold = 'admin'; // admin routing 
 
     function beforeFilter(){
-        parent::beforeFilter();
+        parent::beforeFilter(); // inherit AppController punya beforeFilter
         $this->Auth->allow(array('signup' , 'login') );
     }
     
@@ -24,7 +24,7 @@ Class StaffInformationsController extends AppController{
     function logout(){
         $this->Session->destroy();
         $this->Session->setFlash('Logged Out');
-        $this->redirect($this->Auth->logout());
+        $this->redirect('/');
     }
 
     
@@ -38,11 +38,11 @@ Class StaffInformationsController extends AppController{
     
     
     function login() {
-      $this->layout = 'forum';
+      $this->layout = 'forum'; // guna layout forum.ctp
       if( !(empty($this->data)) && $this->Auth->user() ){
           //$this->User->id = $this->Auth->user('id');
           //$this->User->saveField('last_login', date('Y-m-d H:i:s') );
-          $this->redirect($this->Auth->redirect());
+          $this->redirect('index');
       }
     }  
       

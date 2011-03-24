@@ -36,4 +36,7 @@ class AppController extends Controller {
         ) // Auth      
   ); // components
   
+  function beforeFilter(){
+  }
+  
 }
