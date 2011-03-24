@@ -125,3 +125,52 @@ h1 a{
     font-weight:normal;
     padding: 10px;
 }
+
+
+/** Styling untuk kekotak #topic **/
+#topic { 
+    background-color: yellow;
+    padding: 10px;
+    border-bottom: 10px lightblue solid;
+}
+
+/** Dalam id #topik ada class .header **/
+#topic .header{ 
+    background-color: #eaeaea;
+    color: white;
+    font-size: 2em;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px black solid;
+}
+
+/** Dalam id #topik ada class .header ada id #title **/
+#topic .header #title{
+    color: black;
+    font-size: 2em;
+} 
+
+/** Dalam id #topik ada class .header ada id #created **/
+#topic .header #created{
+    color: black;
+    font-size: 0.5em;
+    font-weight: bold;
+
+} 
+
+/** Dalam id #topik ada class .header ada id #poster **/
+#topic .header #poster{
+    color: black;
+    font-size: 0.5em;
+    font-weight: bold;
+} 
+
+
+/** Dalam id #topik ada class .body **/
+#topic .body{ 
+    background-color: white;
+    font-size: 2em;
+    padding: 5px;
+    color: black;
+    border: 2px black solid;
+}
