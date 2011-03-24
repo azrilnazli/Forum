@@ -6,22 +6,11 @@ Class SiteModuleHelper extends AppHelper{
    
    // Show Menu
    function menu(){
-      $html = '
-      <div id="sidebar">
-        <h2>Sidebar</h2>
-        <ul>
-          <li>Home</li>
-          <li>About Us</li>
-          <li>Contact Us</li>
-
-          <li>Forum Guidelines</li>
-          <li>Search</li>
-          <li>Sign Up</li>
-          <li>Forgot Password</li>  
-        </ul>
-    </div>      
-      '; // $html
-      echo $html;
+        // nak load Element function
+        $this->View =& ClassRegistry::getObject('view');
+        
+        // display using element APP/views/elements/menu.ctp
+        echo  $this->View->element('menu' ); 
    } // menu()
    
    // Show Statistics

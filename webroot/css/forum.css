@@ -17,6 +17,17 @@ h1 a{
 #sidebar ul li{ 
   margin-left:15px;
   }
+  
+#sidebar a{ 
+  color: yellow;  
+  text-decoration:none;
+  }
+  
+#sidebar a:hover{ 
+  color: yellow;  
+  font-size: 1.2em;
+   text-decoration:underline;
+  }
 
   #header{		
   height:40px; 
@@ -126,4 +137,20 @@ h1 a{
     padding: 10px;
 }
 
+
+/** Styling for #info **/
+#info { 
+    background-color: yellow;
+    padding: 10px;
+    border-bottom: 10px lightblue solid;
+}
+#info h1 { 
+    color: blue;
+    font-size: 3em;
+}
+#info p { 
+    color: blaco;
+    font-size: 1.5em;
+    font-face: verdana;
+}
 

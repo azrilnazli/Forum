@@ -263,7 +263,7 @@ Class BoardController extends AppController {
       
       // execute the call
       $replies = $this->ForumCategory->ForumTopic->ForumReply->find('all', $options);
-      debug($replies);
+      //debug($replies);
       $this->set(compact('replies'));
      
       
