@@ -18,6 +18,7 @@ Class StaffInformationsController extends AppController{
     
     function index(){
         // user's home after login
+        $this->layout = 'forum';
     }
     
     
@@ -48,20 +49,15 @@ Class StaffInformationsController extends AppController{
       
     function signup(){
         $this->layout = 'forum';
-        if( $this->RequestHandler->isPost() ){
+        if( $this->RequestHandler->isPost() ){ // detect orang submit
         //debug($this->data);
             $whitelists = array('username' , 'password' , 'email', 'biodata');
           
-            if(  $this->StaffInformation->save($this->data, $whitelists)  ){
+            if( $this->StaffInformation->save($this->data, $whitelists)  ){
                 $this->StaffInformation->saveField('forum_role_id', 3 );
                 $this->Session->setFlash("You're registered.");
                 $this->redirect('index');
             } // save()
         } // isPost()
     }
-    
-    
-    
-    
-    
 } // StaffInformation

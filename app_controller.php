@@ -37,6 +37,41 @@ class AppController extends Controller {
   ); // components
   
   function beforeFilter(){
+  
+      # kalau user dah login
+      if( $this->Auth->user() ){
+          // Load Staff Information Model
+          App::import('Model' , 'StaffInformation');
+          $this->StaffInformation = new StaffInformation();
+          
+          $options['conditions'] = array('StaffInformation.id' => $this->Auth->user('id') );
+          $options['recursive'] = 1;
+          $options['fields'] = array(
+                                          'StaffInformation.id',
+                                          'StaffInformation.username', 
+                                          //'StaffInformation.email'
+                                          ); // fields
+          
+          // load Containable
+          $this->StaffInformation->Behaviors->attach('Containable');
+          $options['contain'] =  array(
+              'ForumRole' => array(
+                    'fields' => array('title')
+              ) // ForumRole
+          ); // Contain
+          
+          $user  = $this->StaffInformation->find( 'first' , $options );
+          // daftar guna Configure 
+          //debug($user);
+          
+          // guna Session
+          if( !$this->Session->check('user') ){ // check kalau var $user wujud ?
+              $this->Session->write('user', $user); // kalau tak wujud baru write
+          } // check
+          
+          //Configure::write('user' , $user );
+      } // Auth
+  
   }
   
 }
