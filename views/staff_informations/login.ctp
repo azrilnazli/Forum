@@ -10,6 +10,11 @@
 ?>
 <div id = 'info'>
 <h1>Login</h1>
+
+<?php IF( $this->Session->check('Message.auth') ): ?>
+<?php   echo $this->Session->flash('auth'); ?>
+<?php ENDIF; ?>
+
 <fieldset>
 <?php
 $options['url']['controller'] = 'StaffInformations';

@@ -68,7 +68,7 @@ h1 a{
 }
 
 /** Flash Message **/
-#flashMessage { 
+#flashMessage , #authMessage{ 
     background-color: white;
     color: red;
     padding: 5px;
@@ -76,6 +76,8 @@ h1 a{
     border: 10px red solid;
     margin-bottom: 20px;
 }
+
+
 
 /** Breadcrumb Navigation **/
 #breadcrumb { 
