@@ -10,16 +10,29 @@
 ?>
 <div id = 'info'>
 <fieldset>
-<legend>Signup</legend>
+<legend></legend>
 <?php
 $options['url']['controller'] = 'StaffInformations';
 $options['url']['action'] = 'signup';
 echo $this->Form->create('StaffInformation', $options);
 ?>
-<?php echo $this->Form->input('username'); ?>
-<?php echo $this->Form->input('password'); ?>
-<?php echo $this->Form->input('email'); ?>
-<?php echo $this->Form->input('biodata'); ?>
-<?php echo $this->Form->end('Sign Me Up'); ?>
+<?php
+     $o['label'] = FALSE;
+     $o['div'] = FALSE;
+?>     
+
+<table >
+<tr>
+<td><p>Username </p></td><td>: <?php echo $this->Form->input('username',$o); ?></td>
+</tr>
+<tr>
+<td><p>Password </p></td><td>: <?php echo $this->Form->input('password',$o); ?></td>
+</tr>
+
+</table>
+
+<p>Bio <br />
+<?php echo $this->Form->input('biodata',$o); ?></p>
+<?php echo $this->Form->end('Sign Me Up',$o); ?>
 </fieldset>
 </div>

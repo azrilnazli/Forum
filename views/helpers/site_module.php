@@ -3,6 +3,15 @@ Class SiteModuleHelper extends AppHelper{
   
     // load Html Helper
     var $helpers = array('Html');
+    
+   // UserPanel
+   function userpanel(){
+         // nak load Element function
+        $this->View =& ClassRegistry::getObject('view');
+        
+        // display using element APP/views/elements/userpanel.ctp
+        echo  $this->View->Element('userpanel' );   
+   }
    
    // Show Menu
    function menu(){

@@ -154,3 +154,30 @@ h1 a{
     font-face: verdana;
 }
 
+/** FORM **/
+form label{
+    font-size: 2em;
+    border: 4px #000 solid;
+}
+
+form input{
+    font-size: 1.2em;
+    font-weight:bold;
+    height: 20px;
+    width: 150px;
+    border: 4px #000 solid;    
+}
+input[type=submit] {
+  height: 30px;
+	display: inline;
+	font-size: 1.2em;
+  width: auto;
+}
+
+textarea {
+  height: 200px;
+	display: inline;
+	font-size: 1.2em;
+  font-weight: bold;
+  border: 4px #000 solid;    
+}
