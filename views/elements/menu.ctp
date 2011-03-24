@@ -13,6 +13,16 @@
        $about_us = $this->Html->link('About Us', $options);
       echo $this->Html->tag('li', $about_us);  
       
+       $options['controller'] = 'StaffInformations';
+       $options['action'] = 'signup';
+       $signup = $this->Html->link('Sign Up', $options);
+      echo $this->Html->tag('li', $signup);  
+      
+      
+       $options['controller'] = 'StaffInformations';
+       $options['action'] = 'login';
+       $login = $this->Html->link('Login', $options);
+      echo $this->Html->tag('li', $login);        
       ?>
       <li>Contact Us</li>
 
