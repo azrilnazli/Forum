@@ -1,0 +1,79 @@
+/** Styling untuk kekotak #topic **/
+#topic { 
+    background-color: yellow;
+    padding: 10px;
+    border-bottom: 10px lightblue solid;
+}
+
+/** Dalam id #topik ada class .header **/
+#topic .header{ 
+    background-color: #eaeaea;
+    color: white;
+    font-size: 2em;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px black solid;
+}
+
+/** Dalam id #topik ada class .header ada id #title **/
+#topic .header #title{
+    color: black;
+    font-size: 1.5em;
+} 
+
+/** Dalam id #topik ada class .header ada id #created **/
+#topic .header #created{
+    color: grey;
+    font-size: 1em;
+    font-weight: bold;
+
+} 
+
+/** Dalam id #topik ada class .header ada id #poster **/
+#topic .header #poster{
+    color: grey;
+    font-size: 1em;
+    font-weight: bold;
+} 
+
+
+/** Dalam id #topik ada class .body **/
+#topic .body{ 
+    background-color: white;
+    font-size: 2em;
+    padding: 5px;
+    color: black;
+    border: 2px black solid;
+}
+
+#topic .body #quote{ 
+
+    font-size: 2em;
+    color: black;
+ 
+}
+
+
+/** Styling untuk kekotak #reply **/
+#reply { 
+    background-color: blue;
+    padding: 5px;
+    border-bottom: 10px lightblue solid;
+}
+
+#reply .header { 
+    background-color: blue;
+    margin-bottom: 5px;
+    padding: 2px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: white;
+}
+
+#reply .body { 
+    background-color: white;
+    padding: 10px;
+    font-size: 1.5em;
+    font-weight: bold;
+    border: 2px darkblue solid;
+}
