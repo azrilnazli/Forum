@@ -24,8 +24,7 @@
   ?>
   
   </h1>  
-  
-  
+
   <table>
       <tr>
           <th id="number">&nbsp;#</th>
@@ -39,7 +38,14 @@
    <tbody> 
       <tr>
           <td><?php echo $k+1; ?></td>
-          <td><?php echo "<span id='title'>{$t['title']}</span> posted by <span id='last-poster'>{$t['StaffInformation']['username']}" ?></span></td>
+          <td>
+          
+          <?php 
+          $options['controller'] = 'Board';
+          $options['action'] = 'topic';
+          $options['topic_id'] = $t['id'];
+          $title = $this->Html->link($t['title'], $options);
+          echo "<span id='title'>{$title}</span> posted by <span id='last-poster'>{$t['StaffInformation']['username']}" ?></span></td>
           <td id="reply">
           <?php 
           if(!empty($t['ForumReply'][0])):
@@ -52,7 +58,7 @@
           );
           else:
           
-            echo 'No reply yet';
+              echo '<p style="font-weight:bold;color: grey">No reply yet</p>';
           
           endif;// check ForumReply
           ?>
