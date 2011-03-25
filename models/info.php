@@ -63,9 +63,30 @@ Class Info extends AppModel{
               'message' => 'Invalid State',
               'last' => TRUE              
           ), //  checkDob          
-         
-      
+
       ), // Field : nric         
+      
+   /** Field : gender **/
+      'gender' => array(
+      
+          /** Not Empty **/
+          'notEmpty' => array(
+              'rule' => 'notEmpty',
+              'message' => 'Please choose a gender',
+              'last' => TRUE // stop validation if this rule not fulfilled
+          ), // notEmpty
+      ), // Field :gender
+      
+   /** Field : occupation **/
+      'occupation' => array(
+      
+          /** Not Empty **/
+          'notEmpty' => array(
+              'rule' => 'notEmpty',
+              'message' => 'Please choose a job',
+              'last' => TRUE // stop validation if this rule not fulfilled
+          ), // notEmpty
+      ), // Field :occupation      
   
   );// validate  
   

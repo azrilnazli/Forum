@@ -14,6 +14,23 @@
 .contact_us input[type=radio] { margin-right: 10px }
 .contact_us .radio { font-size: 2.2em }
 
+
+/** Checkbox **/
+.contact_us input[type=checkbox] { margin-right: 20px }
+.contact_us .checkbox { font-size: 1.0em }
+
+/** Select **/
+.contact_us select {
+	clear: both;
+	font-size: 2.2em;
+	vertical-align: text-bottom;
+}
+
+.contact_us option {
+	padding-left : 10px;
+  width: 270px;
+}
+
 .contact_us #error { 
     color: white; 
     font-size: 1.8em;
@@ -107,7 +124,7 @@
         </tr>
         <?php ############################# email ?>     
         
-        <?php ############################# email?>
+        <?php ############################# gender ?>
         <tr>
         <td><?php echo $this->Form->label('Gender'); ?></td>
         <td>
@@ -136,7 +153,77 @@
         <?php ENDIF; ?>
         </td>
         </tr>
-        <?php ############################# email ?>             
+        <?php ############################# gender ?>             
+        
+        <?php ############################# occupation ?>
+        <tr>
+        <td><?php echo $this->Form->label('Occupation'); ?></td>
+        <td>
+        <?php
+        unset($options);
+        $occupations = array(
+          'private' => 'Private',
+          'government' => 'Government',
+          'other' => 'Other',
+        );
+        $options['type'] = 'select'; // text|radio|checkbox|select|textarea|password|file
+        $options['label'] = FALSE;
+        $options['options'] = $occupations;
+       // $options['legend'] = FALSE;
+        $options['error'] = FALSE;
+        $options['div'] = array('class' => 'select' );
+        $options['id'] = 'occupation';
+        $options['empty'] = 'Please Select';
+        echo  $this->Form->input('occupation', $options);
+        ?>
+        </td>
+        <td>
+        <?php IF($this->Form->isFieldError('occupation')): // check error ?>
+        <div id="error">
+        <?php echo $this->Form->error('occupation'); ?>
+        </div>
+        <?php ENDIF; ?>
+        </td>
+        </tr>
+        <?php ############################# occupation ?>  
+        
+        
+        
+        <?php ############################# hobbies ?>
+        <tr>
+        <td><?php echo $this->Form->label('Hobbies'); ?></td>
+        <td>
+        <?php
+        unset($options);
+        $hobbies = array(
+          'swimming' => 'Swimming',
+          'gymnasium' => 'Gymnasium',
+          'aerobic' => 'Aerobic',
+          'tennis' => 'Tennis',
+          'other' => 'Other',
+   
+        );
+        $options['type'] = 'select'; // text|radio|checkbox|select|textarea|password|file
+        $options['multiple'] = 'checkbox'; // checkbox | select
+        $options['label'] = FALSE;
+        $options['options'] = $hobbies;
+       // $options['legend'] = FALSE;
+        $options['error'] = FALSE;
+        $options['div'] = array('class' => 'select' );
+        $options['id'] = 'occupation';
+        $options['empty'] = 'Please Select';
+        echo  $this->Form->input('hobbies', $options);
+        ?>
+        </td>
+        <td>
+        <?php IF($this->Form->isFieldError('hobbies')): // check error ?>
+        <div id="error">
+        <?php echo $this->Form->error('hobbies'); ?>
+        </div>
+        <?php ENDIF; ?>
+        </td>
+        </tr>
+        <?php ############################# hobbies ?>          
         
     </table>
     <?php 
