@@ -15,6 +15,22 @@ $(document).ready(  function(){
             // show #other-job
             //$('#other-job').hide();
      }); // bind
+     
+     
+      $(':checkbox').click(function(){
+           var cObj = $(this);
+           var cVal = cObj.val();
+           var tObj = $('#t');
+           var tVal = tObj.val();
+           if( cObj.attr("checked")) {
+              tVal = tVal + "," + cVal; 
+              $('#t').attr("value", tVal);
+              alert('dodo');
+           } else {
+              //TODO remove unchecked value.
+           }
+        });
+
  
 });//ready
 </script>

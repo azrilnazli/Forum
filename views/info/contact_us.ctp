@@ -5,6 +5,59 @@
       ?>
 </div>
 <p></p>
+<?php
+// Link to online library
+echo $this->Html->script('http://code.jquery.com/jquery-1.5.1.min.js');
+?> 
+<script>
+$(document).ready(  function(){
+    // Hide class other
+    $('.other').hide();
+    
+    // selector for Gender
+    /*
+    If you wish to use any of the meta-characters ( such as !"#$%&'()*+,./:;<=>?@[\]^`{|}~ ) as a literal part of a name, you must escape the character with two backslashes: \\
+    */
+    // name = data['Info'][''gender]
+    
+    
+    //function show_other(){
+    function show_other(type ,event , fieldname){
+    //################### show field
+    //field = [name="data\\[Info\\]\\[gender\\]"]';
+
+    field = type+'[name="data\\[Info\\]\\['+fieldname+'\\]"]';
+    $(field).bind(event, function(){
+            // show #other-job
+            //$('#other-gender').show();
+            //val = $("input:radio:checked").val();
+            var selected = $(this).val(); 
+ 
+  
+            // if user choose 'other', show #other-gender
+            if( selected == 'other' ){
+                $('#other-'+fieldname+'').show();
+            } else {
+                $('#other-'+fieldname+'').hide(); 
+            }
+     }); // bind Gender
+    //################### show field
+    }// function
+    
+    show_other('input','click', 'gender');  
+    show_other('select','change', 'occupation');  
+    
+    // Checkbox
+    // id=InfoHobbiesOther
+    $('#InfoHobbiesOther').bind('click', function(){
+        //alert('checked');
+        $('#other-hobbies').toggle();
+    });
+    
+ 
+});//ready
+</script>
+
 <style>
 .contact_us td { padding: 5px }
 .contact_us label { font-size: 2.2em; }
@@ -153,6 +206,22 @@
         <?php ENDIF; ?>
         </td>
         </tr>
+        <tr class="other" id="other-gender" >
+        <td>
+            <?php echo $this->Form->label('Other Gender'); ?>
+        </td>
+        <td>
+            <?php 
+            unset($options);
+            $options['type'] = 'text'; // text|radio|checkbox|select|textarea|password|file
+            $options['label'] = FALSE;
+            $options['error'] = FALSE;
+            $options['id'] = 'other-gender-form';
+            echo $this->Form->input('other_gender', $options); 
+            ?>
+        </td>
+        
+        </tr>
         <?php ############################# gender ?>             
         
         <?php ############################# occupation ?>
@@ -185,6 +254,23 @@
         <?php ENDIF; ?>
         </td>
         </tr>
+        
+        <tr class="other" id="other-occupation" >
+        <td>
+            <?php echo $this->Form->label('Other Occupation'); ?>
+        </td>
+        <td>
+            <?php 
+            unset($options);
+            $options['type'] = 'text'; // text|radio|checkbox|select|textarea|password|file
+            $options['label'] = FALSE;
+            $options['error'] = FALSE;
+            $options['id'] = 'other-occupation-form';
+            echo $this->Form->input('other_occupation', $options); 
+            ?>
+        </td>
+        
+        </tr>
         <?php ############################# occupation ?>  
         
         
@@ -210,7 +296,7 @@
        // $options['legend'] = FALSE;
         $options['error'] = FALSE;
         $options['div'] = array('class' => 'select' );
-        $options['id'] = 'occupation';
+        $options['id'] = 'hobbies';
         $options['empty'] = 'Please Select';
         echo  $this->Form->input('hobbies', $options);
         ?>
@@ -222,6 +308,22 @@
         </div>
         <?php ENDIF; ?>
         </td>
+        </tr>
+        <tr class="other" id="other-hobbies" >
+        <td>
+            <?php echo $this->Form->label('Other Hobbies'); ?>
+        </td>
+        <td>
+            <?php 
+            unset($options);
+            $options['type'] = 'text'; // text|radio|checkbox|select|textarea|password|file
+            $options['label'] = FALSE;
+            $options['error'] = FALSE;
+            $options['id'] = 'other-hobbies-form';
+            echo $this->Form->input('other_hobbies', $options); 
+            ?>
+        </td>
+        
         </tr>
         <?php ############################# hobbies ?>          
         
