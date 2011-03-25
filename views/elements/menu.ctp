@@ -12,6 +12,12 @@
        $options['action'] = 'about_us';
        $about_us = $this->Html->link('About Us', $options);
       echo $this->Html->tag('li', $about_us);  
+
+       $options['controller'] = 'Info';
+       $options['action'] = 'contact_us';
+       $contact_us = $this->Html->link('Contact Us', $options);
+      echo $this->Html->tag('li', $contact_us);  
+
       
        $options['controller'] = 'StaffInformations';
        $options['action'] = 'signup';
@@ -24,11 +30,11 @@
        $login = $this->Html->link('Login', $options);
       echo $this->Html->tag('li', $login);        
       ?>
-      <li>Contact Us</li>
+
 
       <li>Forum Guidelines</li>
       <li>Search</li>
-      <li>Sign Up</li>
+
       <li>Forgot Password</li>  
     </ul>
 </div>      
