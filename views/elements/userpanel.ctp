@@ -25,6 +25,7 @@
      <?php
      $o['label'] = FALSE;
      $o['div'] = FALSE;
+     $o['error'] = FALSE;
      ?>
     <?php echo $this->Form->input('username',$o) ?> 
     <?php echo $this->Form->input('password',$o) ?>

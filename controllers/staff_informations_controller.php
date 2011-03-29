@@ -51,10 +51,11 @@ Class StaffInformationsController extends AppController{
         $this->layout = 'forum';
         if( $this->RequestHandler->isPost() ){ // detect orang submit
         //debug($this->data);
-            $whitelists = array('username' , 'password' , 'email', 'biodata');
+            $whitelists = array('username' , 'biodata');
           
             if( $this->StaffInformation->save($this->data, $whitelists)  ){
                 $this->StaffInformation->saveField('forum_role_id', 3 );
+                $this->StaffInformation->saveField('password', $this->Auth->password(  $this->data['StaffInformation']['new_password']  ) );
                 $this->Session->setFlash("You're registered.");
                 $this->redirect('index');
             } // save()
