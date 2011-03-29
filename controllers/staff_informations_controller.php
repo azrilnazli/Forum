@@ -13,7 +13,7 @@ Class StaffInformationsController extends AppController{
 
     function beforeFilter(){
         parent::beforeFilter(); // inherit AppController punya beforeFilter
-        $this->Auth->allow(array('signup' , 'login') );
+        $this->Auth->allow(array('signup' , 'login','forgot_password') );
     }
     
     function index(){
@@ -61,4 +61,51 @@ Class StaffInformationsController extends AppController{
             } // save()
         } // isPost()
     }
+    
+    /**
+     * 1) User will provide Email to reset password
+     * 2) If Exist, System will create new data on Ticket 
+     *      with random character and user_id
+     * 3) System will send an email to user with reset password link
+     * 4) User will click the link ( /reset_password/<ticket_no> )
+     * 5) System will check ticket_no with existing data in Ticket table
+     * 6) System display change password form
+     * 7) System accept user new password
+     * 8) System redirect user to Login Page
+    **/      
+    function forgot_password(){
+      $this->layout = 'forum';
+      
+      // user submit
+      if( $this->RequestHandler->isPost()  ) {
+          debug(  $this->data );
+            // start validation 
+            $this->StaffInformation->set( $this->data );
+       
+            // validates submitted form
+            if (  $this->StaffInformation->validates()  ) {
+                  // generate Ticket
+                  
+                  // hantar Email
+                  
+            } // validates()
+          
+      } // isPost
+      
+    } // forgot_password()
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 } // StaffInformation

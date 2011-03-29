@@ -26,6 +26,25 @@ Class StaffInformation extends AppModel{
     
   
   var $validate = array(
+
+    /** Field : forgot_email **/
+      'forgot_email' => array(
+      
+          /** Not Empty **/
+          'notEmpty' => array(
+              'rule' => 'notEmpty',
+              'message' => 'Please fill up your email',
+              'last' => TRUE // stop validation if this rule not fulfilled
+          ), // notEmpty
+          
+          /** Email **/
+          'email' => array(
+              'rule' => 'email',
+              'message' => 'Invalid Email Format' ,
+              'last' => TRUE // stop validation if this rule not fulfilled
+          ), //  Email
+            
+      ), // Field forgot_email  
   
       /** Field : username **/
       'username' => array(
@@ -75,7 +94,7 @@ Class StaffInformation extends AppModel{
               'rule' => 'email',
               'message' => 'Invalid Email Format' ,
               'last' => TRUE // stop validation if this rule not fulfilled
-          ), //  Between
+          ), //  Email
 
           /** isUnique **/
           'isUnique' => array(
