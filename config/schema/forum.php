@@ -24,6 +24,7 @@ class forumSchema extends CakeSchema {
 		
     'username' => array('type' => 'string'),
     'password' => array('type' => 'string'),
+    'email' => array('type' => 'string'),
     'biodata' => array('type' => 'text'),
     
     // cake automatic trail

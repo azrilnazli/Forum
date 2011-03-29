@@ -85,7 +85,7 @@ font-weight:bold;
         <?php ############################# username ?>
         
         
-     <?php ############################# username ?>
+     <?php ############################# new_password ?>
         <tr>
         <td><?php echo $this->Form->label('Password'); ?></td>
         <td>
@@ -109,6 +109,31 @@ font-weight:bold;
         </td>
         </tr>
         <?php ############################# new_password ?>
+        
+      <?php ############################# email ?>
+        <tr>
+        <td><?php echo $this->Form->label('Email'); ?></td>
+        <td>
+        <?php
+        unset($options);
+        $options['type'] = 'text'; // text|radio|checkbox|select|textarea|password|file
+        $options['label'] = FALSE;
+        //$options['before'] = 'JPN [ ';
+        $options['error'] = FALSE;
+        $options['div'] = false;
+        $options['id'] = 'username';
+        echo  $this->Form->input('email', $options);
+        ?>
+        </td>
+        <td>
+        <?php IF($this->Form->isFieldError('email')): // check error ?>
+        <div id="error">
+        <?php echo $this->Form->error('email'); ?>
+        </div>
+        <?php ENDIF; ?>
+        </td>
+        </tr>
+        <?php ############################# email ?>        
            
            
         <?php ############################# biodata ?>

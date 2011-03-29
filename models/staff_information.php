@@ -37,6 +37,14 @@ Class StaffInformation extends AppModel{
               'last' => TRUE // stop validation if this rule not fulfilled
           ), // notEmpty
           
+          
+          /** AlphaNumeric **/
+          'between' => array(
+              'rule' => 'alphaNumeric',
+              'message' => 'Invalid Username Format' ,
+              'last' => TRUE // stop validation if this rule not fulfilled
+          ), //  Between
+          
           /** Between **/
           'between' => array(
               'rule' => array('between', 3 , 15),
@@ -52,6 +60,30 @@ Class StaffInformation extends AppModel{
             
       ), // Field username      
       
+        /** Field : email **/
+      'email' => array(
+      
+          /** Not Empty **/
+          'notEmpty' => array(
+              'rule' => 'notEmpty',
+              'message' => 'Please fill up your email',
+              'last' => TRUE // stop validation if this rule not fulfilled
+          ), // notEmpty
+          
+          /** Email **/
+          'email' => array(
+              'rule' => 'email',
+              'message' => 'Invalid Email Format' ,
+              'last' => TRUE // stop validation if this rule not fulfilled
+          ), //  Between
+
+          /** isUnique **/
+          'isUnique' => array(
+              'rule' => array('isUnique'),
+              'message' => 'Your email is taken' 
+          ) //  isUnique
+            
+      ), // Field email            
 
       /** Field : new_password **/
       'new_password' => array(
