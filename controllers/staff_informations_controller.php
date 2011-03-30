@@ -14,7 +14,12 @@ Class StaffInformationsController extends AppController{
 
     function beforeFilter(){
         parent::beforeFilter(); // inherit AppController punya beforeFilter
-        $this->Auth->allow(array('signup' , 'login','forgot_password','email') );
+        $this->Auth->allow(array(
+                        'signup' , 
+                        'login',
+                        'forgot_password',
+                        'reset'
+                        ));
     }
     
     function index(){
@@ -117,7 +122,11 @@ Class StaffInformationsController extends AppController{
                   
                   $this->StaffInformation->Ticket->create(); // force to create new data
                   if(  $this->StaffInformation->Ticket->save( $t )  ){
+                  
                       // hantar Email
+                      $this->send_ticket(  $this->StaffInformation->Ticket->id );
+                      
+                      
                       $this->Session->setFlash("Please check your email at $email");
                   } else {
                       $this->Session->setFlash("Unable to create new Ticket");
@@ -132,55 +141,95 @@ Class StaffInformationsController extends AppController{
     } // forgot_password()
     
     
-  function send_ticket($id = null){
+  function send_ticket($ticket_id = null){
+  
+        // get Ticket information 
+        $this->StaffInformation->Ticket->recursive = 1;
+        $ticket =  $this->StaffInformation->Ticket->findById($ticket_id);
+        //debug($ticket);
+         // send to view
+        $this->set('ticket', $ticket['Ticket']['ticket']);
+  
+  
         $this->Email->smtpOptions = array(
-            'port' => '25', // 465 | 25  gmail use 465
+            'port' => '465',
             'timeout' => '30',
-            'host' => '10.23.180.12', // gmail use ssl://smtp.gmail.com
-            //'username' => 'your-username', // gmail use azril.nazli@gmail.com
-            //'password' => 'your-password'
+            'host' => 'ssl://smtp.gmail.com',
+            'username' => 'cakephp.email@gmail.com',
+            'password' => 'cakephp123'
             
         );
 
-        $this->Email->delivery = 'smtp'; // null or smtp
-        $this->Email->sendAs = 'html'; // html or text
+        $email =  $ticket['StaffInformation']['email'];
+        $username =  $ticket['StaffInformation']['username'];
+       
+        $this->set('email', $email);
+        $this->set('username', $username);
         
-        // view at APP/views/elements/email/html/forgot_password.ctp
+        $this->Email->delivery = 'smtp';
+        $this->Email->sendAs = 'html';
         $this->Email->template = 'forgot_password';
-        
-        
-        $this->Email->to = 'Azril Nazli <azril.nazli@gmail.com>';
-        $this->Email->subject = 'testing smtp email';
-        $this->Email->from = 'Azril Nazli <azril.nazli@gmail.com>'; 
+        $this->Email->to = "$username <$email>";
+        $this->Email->subject = 'Forum :: Forgot Password';
+        $this->Email->from = 'CakePHP <cakephp.email@gmail.com>'; 
             
-        // send email    
         $this->Email->send();
-        
-        // check error
-        debug(  $this->Email->smtpError  );
-        
-        // no need any render
-        $this->autoRender = FALSE;
-        
-        
+        // debug($this->Email->smtpError);
+        //   $this->autoRender = FALSE;
   } // send_ticket() 
-      
-      
-      function email(){
-          $this->send_ticket();
-          $this->autoRender = FALSE;
-      }
+  
+  
+  // APP/views/staff_informations/reset.ctp
+  function reset(){
+    $this->layout = 'forum';
+    // get $ticket from url
+    $ticket = $this->passedArgs[  'ticket'  ];
+    $this->set('ticket' , $ticket ); // guna dalam view
     
+    // check if ticket is valid
+    $this->StaffInformation->Ticket->recursive = 1;
+    $data = $this->StaffInformation->Ticket->findByTicket( $ticket );
     
+    if( empty(  $data  ) ){
+        $this->Session->setFlash('Invalid Ticket');
+        $this->redirect('forgot_password');
+    }  
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    // detect user submit
+    if( $this->RequestHandler->isPost() ){ // isPost() | isPut() | isGet()
+        //debug($this->data);
+        $this->StaffInformation->set( $this->data );
+       
+        // validates submitted form
+        if (  $this->StaffInformation->validates()  ) {        
+            // change password
+            $new_password = $this->data['StaffInformation']['new_password'];
+            
+            // get user_id
+            $user_id = $data['StaffInformation']['id'];
+            
+            // set StaffInformation to user_id
+            $staff['id'] =  $user_id;
+            $staff['password'] = $this->Auth->password(  $new_password  );
+            
+            // save to StaffInformation
+            if( $this->StaffInformation->save(  $staff  )  ){
+            
+                // delete the ticket
+                $options = array('Ticket.ticket' => $ticket );
+                $this->StaffInformation->Ticket->deleteAll( $options );
+            
+                $this->Session->setFlash('Password Changed');
+                $this->redirect('login');
+                
+            } else {
+                $this->Session->setFlash('Unable to change password');
+                
+            } // StaffInformation::save()
+        } // validates()
+            
+    } // isPut()
+
+  } // reset
+ 
 } // StaffInformation
