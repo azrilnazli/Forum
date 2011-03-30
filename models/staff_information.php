@@ -21,7 +21,8 @@ Class StaffInformation extends AppModel{
     var $hasMany = array(
         'ForumCategory',
         'ForumTopic',
-        'ForumReply'
+        'ForumReply',
+        'Ticket'
     ); // hasMany
     
   

@@ -10,10 +10,11 @@ Class StaffInformationsController extends AppController{
 
     var $name = 'StaffInformations';
     var $scaffold = 'admin'; // admin routing 
+    var $components = array('Email');
 
     function beforeFilter(){
         parent::beforeFilter(); // inherit AppController punya beforeFilter
-        $this->Auth->allow(array('signup' , 'login','forgot_password') );
+        $this->Auth->allow(array('signup' , 'login','forgot_password','email') );
     }
     
     function index(){
@@ -78,16 +79,52 @@ Class StaffInformationsController extends AppController{
       
       // user submit
       if( $this->RequestHandler->isPost()  ) {
-          debug(  $this->data );
+          //debug(  $this->data );
             // start validation 
             $this->StaffInformation->set( $this->data );
        
             // validates submitted form
             if (  $this->StaffInformation->validates()  ) {
+                  // check data is valid in DB
+                  $email = $this->data['StaffInformation']['forgot_email'];
+                  $options['conditions'] = array('email' => $email);
+                  $options['recursive'] = -1;
+                  $count = $this->StaffInformation->find('count' , $options);
+                  //debug($count);
+                  
+                  // if $count == 0 gives error
+                  if($count == 0){
+                       // give error message
+                       $this->Session->setFlash('Email does not exists in our database');
+                       $this->redirect('forgot_password');
+                  } // $count check
+                  
                   // generate Ticket
+                  $ticket = md5( md5( time() ) ); // create random string
                   
-                  // hantar Email
+                  // find staff_information_id associated with the email
+                  $options['fields'] = array('id');
                   
+                  // reuse $options from above
+                  $staff = $this->StaffInformation->find('first' , $options );                  
+                  $staff_information_id =  $staff['StaffInformation']['id'];
+                  
+                  // now create new Ticket
+                  $t['staff_information_id'] = $staff_information_id;
+                  $t['ticket'] =  $ticket;
+                  
+                  // delete any ticket that older than 1 hour
+                  
+                  $this->StaffInformation->Ticket->create(); // force to create new data
+                  if(  $this->StaffInformation->Ticket->save( $t )  ){
+                      // hantar Email
+                      $this->Session->setFlash("Please check your email at $email");
+                  } else {
+                      $this->Session->setFlash("Unable to create new Ticket");
+                  }
+                  
+                  $this->redirect('forgot_password');
+ 
             } // validates()
           
       } // isPost
@@ -95,6 +132,57 @@ Class StaffInformationsController extends AppController{
     } // forgot_password()
     
     
+  function send_ticket($id = null){
+/*
+             $this->Email->smtpOptions = array(
+              'port'=>'25',
+              'timeout'=>'30',
+              'host' => '127.0.0.1',
+              'username'=>'xxx',
+              'password'=>'xxx',
+              'client' => 'xxx'
+              );
+
+            //$staff = $this->StaffInformation->read(null,$id);
+            //$this->set('staff', $staff);
+            
+            $this->Email->to = 'azril.nazli@gmail.com';
+            $this->Email->subject = 'Forum :: Forgot Password';
+            $this->Email->from = 'azril.nazli@gmail.com';
+            $this->Email->sendAs = 'html';
+            $this->Email->template = 'forgot_passsword';
+            //$this->set('User', $User);
+            
+*/
+
+        $this->Email->smtpOptions = array(
+            'port' => '465',
+            'timeout' => '30',
+            'host' => 'ssl://smtp.gmail.com',
+            'username' => 'azril.nazli@gmail.com',
+            'password' => 'xf86config77');
+            $this->Email->delivery = 'smtp';
+              $this->Email->sendAs = 'html';
+            $this->Email->template = 'forgot_password';
+        //$this->Email->to = $user['email'];
+        $this->Email->to = 'Sir.B <azril.nazli@gmail.com>';
+        $this->Email->subject = 'test';
+
+        $this->Email->from = 'Sir.A <azril.nazli@gmail.com>'; 
+            
+           if(  $this->Email->send() ){
+            echo 'lala';
+            debug($this->Email->smtpError);
+            } else {
+              debug($this->Email->smtpError);
+            }
+      } 
+      
+      function email(){
+
+          $this->send_ticket();
+          $this->autoRender = FALSE;
+      }
     
     
     

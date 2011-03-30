@@ -128,6 +128,19 @@ var $forum_topics = array(
 
   );  // staff_informations  
   
+  
+   var $tickets = array(
+		'id' => array(
+                        'type' => 'integer', 
+                        'key' => 'primary'
+                      ),
+    
+    // Ticket belongsTo StaffInformation
+    'staff_information_id' => array('type' => 'integer'),
+    'ticket' => array('type' => 'string'),
+    'created' => array('type' => 'datetime'),
+    );
+  
   // cake schema create forum staff_informations  
 
 }
