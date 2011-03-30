@@ -57,14 +57,24 @@ Class StaffInformationsController extends AppController{
         $this->layout = 'forum';
         if( $this->RequestHandler->isPost() ){ // detect orang submit
         //debug($this->data);
-            $whitelists = array('username' , 'biodata');
-          
-            if( $this->StaffInformation->save($this->data, $whitelists)  ){
-                $this->StaffInformation->saveField('forum_role_id', 3 );
-                $this->StaffInformation->saveField('password', $this->Auth->password(  $this->data['StaffInformation']['new_password']  ) );
-                $this->Session->setFlash("You're registered.");
-                $this->redirect('index');
-            } // save()
+        
+            // check is answer is correct
+            $answer = 3;
+            $this->StaffInformation->set(  $this->data  );
+            if(  $this->data['StaffInformation']['question'] != 3  ){
+                  $this->StaffInformation->invalidate('question', 'Wrong answer'); 
+            }
+            
+            if (  $this->StaffInformation->validates()  ) {
+                $whitelists = array('username' , 'biodata');
+              
+                if( $this->StaffInformation->save($this->data, $whitelists)  ){
+                    $this->StaffInformation->saveField('forum_role_id', 3 );
+                    $this->StaffInformation->saveField('password', $this->Auth->password(  $this->data['StaffInformation']['new_password']  ) );
+                    $this->Session->setFlash("You're registered.");
+                    $this->redirect('index');
+                } // save() 
+              }  // validates 
         } // isPost()
     }
     
@@ -226,6 +236,7 @@ Class StaffInformationsController extends AppController{
                 $this->Session->setFlash('Unable to change password');
                 
             } // StaffInformation::save()
+            
         } // validates()
             
     } // isPut()

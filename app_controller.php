@@ -71,7 +71,37 @@ class AppController extends Controller {
           
           //Configure::write('user' , $user );
       } // Auth
+      
+      // check is user already logged in ?
+      if(  $this->Auth->user()  ){
+      
+              // protect page from logged users
+              $this->disAllow('StaffInformations', 'login' );
+              $this->disAllow('StaffInformations', 'signup' );
+              $this->disAllow('StaffInformations', 'forgot_password' );
+              $this->disAllow('StaffInformations', 'reset' );
+              
+      } // check
+ 
   
-  }
+  } // beforeFilter()
+  
+  /**
+   * Disallow logged user to certain action
+   **/
+   function disAllow($controller = null, $action = null ){
+   
+      // get current Controller
+      $curr_controller = $this->name;
+      
+      // get current Action
+      $curr_action = $this->action;
+      
+      // checking
+      if(  $curr_controller == $controller AND $curr_action == $action  ){
+          $this->Session->setFlash("  You're not allowed  ");
+          $this->redirect( '/' );
+      } // checking
+   } // disAllow
   
 }

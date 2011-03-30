@@ -160,7 +160,35 @@ font-weight:bold;
         </td>
         </tr>
         <?php ############################# biodata ?>
-              
+        
+        <?php ############################# question ?>
+        <tr>
+        <td><?php echo $this->Form->label('Question'); ?></td>
+        <td>
+        <p>How many letters in "JPN" ?
+        <?php
+        unset($options);
+        $options['type'] = 'text'; // text|radio|checkbox|select|textarea|password|file
+        $options['label'] = FALSE;
+        //$options['before'] = 'JPN [ ';
+        $options['error'] = FALSE;
+        $options['div'] = false;
+        $options['id'] = 'question';
+        $options['style'] = "width: 50px";
+        $options['maxLength'] = 2;
+        echo  $this->Form->input('question', $options);
+        ?>
+        </p>
+        </td>
+        <td>
+        <?php IF($this->Form->isFieldError('question')): // check error ?>
+        <div id="error">
+        <?php echo $this->Form->error('question'); ?>
+        </div>
+        <?php ENDIF; ?>
+        </td>
+        </tr>
+        <?php ############################# question ?>              
     </table>
     <?php 
     # submit button

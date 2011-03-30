@@ -27,6 +27,16 @@ Class StaffInformation extends AppModel{
     
   
   var $validate = array(
+  
+    /** Question **/
+    'question' => array(
+          /** Not Empty **/
+          'notEmpty' => array(
+              'rule' => 'notEmpty',
+              'message' => 'Please answer the question',
+              'last' => TRUE // stop validation if this rule not fulfilled
+          ), // notEmpty
+    ), // question
 
     /** Field : forgot_email **/
       'forgot_email' => array(
