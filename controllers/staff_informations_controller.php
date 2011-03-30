@@ -133,53 +133,40 @@ Class StaffInformationsController extends AppController{
     
     
   function send_ticket($id = null){
-/*
-             $this->Email->smtpOptions = array(
-              'port'=>'25',
-              'timeout'=>'30',
-              'host' => '127.0.0.1',
-              'username'=>'xxx',
-              'password'=>'xxx',
-              'client' => 'xxx'
-              );
-
-            //$staff = $this->StaffInformation->read(null,$id);
-            //$this->set('staff', $staff);
-            
-            $this->Email->to = 'azril.nazli@gmail.com';
-            $this->Email->subject = 'Forum :: Forgot Password';
-            $this->Email->from = 'azril.nazli@gmail.com';
-            $this->Email->sendAs = 'html';
-            $this->Email->template = 'forgot_passsword';
-            //$this->set('User', $User);
-            
-*/
-
         $this->Email->smtpOptions = array(
-            'port' => '465',
+            'port' => '25', // 465 | 25  gmail use 465
             'timeout' => '30',
-            'host' => 'ssl://smtp.gmail.com',
-            'username' => 'azril.nazli@gmail.com',
-            'password' => 'xf86config77');
-            $this->Email->delivery = 'smtp';
-              $this->Email->sendAs = 'html';
-            $this->Email->template = 'forgot_password';
-        //$this->Email->to = $user['email'];
-        $this->Email->to = 'Sir.B <azril.nazli@gmail.com>';
-        $this->Email->subject = 'test';
-
-        $this->Email->from = 'Sir.A <azril.nazli@gmail.com>'; 
+            'host' => '10.23.180.12', // gmail use ssl://smtp.gmail.com
+            //'username' => 'your-username', // gmail use azril.nazli@gmail.com
+            //'password' => 'your-password'
             
-           if(  $this->Email->send() ){
-            echo 'lala';
-            debug($this->Email->smtpError);
-            } else {
-              debug($this->Email->smtpError);
-            }
-      } 
+        );
+
+        $this->Email->delivery = 'smtp'; // null or smtp
+        $this->Email->sendAs = 'html'; // html or text
+        
+        // view at APP/views/elements/email/html/forgot_password.ctp
+        $this->Email->template = 'forgot_password';
+        
+        
+        $this->Email->to = 'Azril Nazli <azril.nazli@gmail.com>';
+        $this->Email->subject = 'testing smtp email';
+        $this->Email->from = 'Azril Nazli <azril.nazli@gmail.com>'; 
+            
+        // send email    
+        $this->Email->send();
+        
+        // check error
+        debug(  $this->Email->smtpError  );
+        
+        // no need any render
+        $this->autoRender = FALSE;
+        
+        
+  } // send_ticket() 
+      
       
       function email(){
-
           $this->send_ticket();
           $this->autoRender = FALSE;
       }
