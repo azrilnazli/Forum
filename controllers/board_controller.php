@@ -292,7 +292,7 @@ Class BoardController extends AppController {
               if( $this->ForumCategory->ForumTopic->save( $this->data )  ){
                   $this->Session->setFlash('Topic Successfully Created' );
                   
-                  $this->ForumCategory->ForumTopic->saveField('forum_category_id',  $this->passedArgs['forum_category_id'] ); 
+                  $this->ForumCategory->ForumTopic->saveField('forum_category_id',  $this->passedArgs['category_id'] ); 
                   $this->ForumCategory->ForumTopic->saveField('staff_information_id',  $this->Auth->user('id') ); 
                   
                   $options['controller'] = 'Board';
