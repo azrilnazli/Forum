@@ -2,7 +2,7 @@
 Class SiteModuleHelper extends AppHelper{
   
     // load Html Helper
-    var $helpers = array('Html');
+    var $helpers = array('Html', 'Session');
     
    // UserPanel
    function userpanel(){
@@ -134,4 +134,23 @@ Class SiteModuleHelper extends AppHelper{
         // display using element APP/views/elements/recent_topics.ctp
         echo  $this->View->element('recent_topics', array('topics' => $topics)  ); 
     }
+    
+    /**
+     * Display Create Topic link for logged user
+     **/
+     function link($title = null, $options = null){
+        
+        // Check if user logged in ?
+        $user = $this->Session->read('user');
+        
+        // If logged in then display the link
+        if(  !empty(  $user  )  ){
+            echo $this->Html->link($title, $options);
+        } // check
+     
+     } // link
+     
+     
+     
+    
 }

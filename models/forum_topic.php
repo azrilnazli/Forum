@@ -25,5 +25,11 @@ Class ForumTopic extends AppModel{
     var $hasMany = array(
         'ForumReply',
     ); // hasMany
+    
+    var $validate = array(
+    
+        'title' => 'notEmpty',
+        'descriptions' => 'notEmpty',
+    );
 
 } // ForumTopic Model

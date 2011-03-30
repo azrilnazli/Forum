@@ -186,3 +186,64 @@ textarea {
   border: 4px #000 solid;    
 }
 */
+
+/** Styling untuk Forum Link **/
+#link{
+    #background-color: lightgrey;
+    text-align: right;
+    padding: 10px;
+}
+
+#link a {
+    color: black;
+    font-size: 2em;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#link a:hover {
+    color: black;
+    font-size: 2em;
+    text-decoration: underline;
+}
+
+.form td { padding: 5px }
+.form label { font-size: 2.2em; }
+.form input[type=text] { width: 300px; height: 30px; border: 1px #000 solid; font-size: 2em }
+.form input[type=password] { width: 300px; height: 30px; border: 1px #000 solid; font-size: 2em }
+
+.form textarea {
+border: 1px #000 solid;
+width: 300px;
+font-size: 2em;
+font-weight:bold;
+}
+/** Radio Button **/
+.form input[type=radio] { margin-right: 10px }
+.form .radio { font-size: 2.2em }
+
+
+/** Checkbox **/
+.form input[type=checkbox] { margin-right: 20px }
+.form .checkbox { font-size: 1.0em }
+
+/** Select **/
+.form select {
+	clear: both;
+	font-size: 2.2em;
+	vertical-align: text-bottom;
+}
+
+.form option {
+	padding-left : 10px;
+  width: 270px;
+}
+
+.form #error { 
+    color: white; 
+    font-size: 1.5em;
+    background-color: red;  
+    height: 25px; 
+    padding: 5px; 
+    border: 2px #fff solid;
+}

@@ -270,8 +270,64 @@ Class BoardController extends AppController {
       $replies = $this->ForumCategory->ForumTopic->ForumReply->find('all', $options);
       //debug($replies);
       $this->set(compact('replies'));
-     
-      
+
    } // topic()       
+   
+   /**
+    * Untuk display form untuk create topic
+    * Detect form submission untuk create topic
+    * Mesti terima category_id
+    **/
+    
+    function create_topic(){
+    
+        if(  $this->RequestHandler->isPost()  ){
+        
+          $this->ForumCategory->ForumTopic->set(  $this->data  ); // set from data for validation
+          
+          // checking form validation
+          if(  $this->ForumCategory->ForumTopic->validates()  ){
+              
+              // save to db
+              if( $this->ForumCategory->ForumTopic->save( $this->data )  ){
+                  $this->Session->setFlash('Topic Successfully Created' );
+                  
+                  $this->ForumCategory->ForumTopic->saveField('staff_information_id',  $this->Auth->user('id') ); 
+                  
+                  $options['controller'] = 'Board';
+                  $options['action'] = 'topic';
+                  $options['topic_id'] = $this->ForumCategory->ForumTopic->id;
+                  $this->redirect( $options );
+                  
+              } // save()
+          
+          } // validates()
+        
+        } // detect Post
+    
+        // get category_id
+        $category_id = $this->passedArgs['category_id'];
+        
+        // check category_id valid ?
+        $options['conditions'] = array('ForumCategory.id' => $category_id);
+        $count = $this->ForumCategory->find('count', $options);
+        
+        //debug( $count );
+        if(  $count == 0  ){
+            $this->Session->setFlash('Invalid Category');
+            $this->redirect( $this->referer() );
+        } // check
+        
+        $options['fields'] = array('ForumCategory.title', 'ForumCategory.id' );
+        $options['recursive'] = -1;
+        
+        $category = $this->ForumCategory->find('first' , $options );
+        //debug(  $category  );
+        $this->set('category' , $category );
+            
+    
+    }
+   
+   
     
 } // BoardController

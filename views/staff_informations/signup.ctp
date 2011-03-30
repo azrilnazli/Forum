@@ -172,7 +172,7 @@ font-weight:bold;
         $options['label'] = FALSE;
         //$options['before'] = 'JPN [ ';
         $options['error'] = FALSE;
-        $options['div'] = false;
+        $options['div'] = FALSE;
         $options['id'] = 'question';
         $options['style'] = "width: 50px";
         $options['maxLength'] = 2;
@@ -181,7 +181,7 @@ font-weight:bold;
         </p>
         </td>
         <td>
-        <?php IF($this->Form->isFieldError('question')): // check error ?>
+        <?php IF(  $this->Form->isFieldError('question')  ): // check error ?>
         <div id="error">
         <?php echo $this->Form->error('question'); ?>
         </div>

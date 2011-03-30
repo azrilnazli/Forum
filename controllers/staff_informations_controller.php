@@ -60,23 +60,23 @@ Class StaffInformationsController extends AppController{
         
             // check is answer is correct
             $answer = 3;
-            $this->StaffInformation->set(  $this->data  );
-            if(  $this->data['StaffInformation']['question'] != 3  ){
-                  $this->StaffInformation->invalidate('question', 'Wrong answer'); 
-            }
+            $this->StaffInformation->set(  $this->data  ); // set from data for validation
+            if(  $this->data['StaffInformation']['question'] != 3  ){  // the answer
+                  $this->StaffInformation->invalidate('question', 'Wrong answer');  // invalidate question field
+            } // check
             
             if (  $this->StaffInformation->validates()  ) {
-                $whitelists = array('username' , 'biodata');
+                $whitelists = array('username' ,'email' , 'biodata'); // field that allowed to save in db
               
-                if( $this->StaffInformation->save($this->data, $whitelists)  ){
-                    $this->StaffInformation->saveField('forum_role_id', 3 );
-                    $this->StaffInformation->saveField('password', $this->Auth->password(  $this->data['StaffInformation']['new_password']  ) );
-                    $this->Session->setFlash("You're registered.");
-                    $this->redirect('index');
+                if( $this->StaffInformation->save($this->data, $whitelists)  ){ // trying to save
+                    $this->StaffInformation->saveField('forum_role_id', 3 ); // set the user as 'User'
+                    $this->StaffInformation->saveField('password', $this->Auth->password(  $this->data['StaffInformation']['new_password']  ) ); // hash the password
+                    $this->Session->setFlash("You're registered."); // give message
+                    $this->redirect('index'); // redirect to index
                 } // save() 
               }  // validates 
         } // isPost()
-    }
+    } // signup()
     
     /**
      * 1) User will provide Email to reset password

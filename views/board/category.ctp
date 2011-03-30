@@ -16,5 +16,14 @@
           )      
       ); 
       ?>
+     
+      <div id="link">
+      <?php 
+        $options['controller'] = 'Board';
+        $options['action'] = 'create_topic';
+        $options['category_id'] = $this->passedArgs['category_id'];
+        $this->SiteModule->link('Create Topic', $options );
+      ?>  
+      </div>
 </div> <!-- #category -->
 <p></p>

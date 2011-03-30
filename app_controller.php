@@ -102,6 +102,6 @@ class AppController extends Controller {
           $this->Session->setFlash("  You're not allowed  ");
           $this->redirect( '/' );
       } // checking
-   } // disAllow
+   } // disAllow()
   
-}
+} // AppController()
