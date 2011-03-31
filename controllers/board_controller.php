@@ -328,6 +328,51 @@ Class BoardController extends AppController {
             
     
     }
+    
+    /**
+     * Paparkan form untuk reply topic
+     * Paparkan Topic yang ingin di reply
+     *
+     * kalau isPost() :
+     *  1. Terima reply berdasarkan $topic_id
+     *  2. Reply disusun mengikut reply latest duduk paling atas
+     *  3. Jika tiada $topic_id redirect
+     **/
+    function create_reply() {
+    
+        $topic_id = $this->passedArgs['topic_id']; // dapatkan nilai dari URL
+        
+        // check topic_id valid ?
+        $options['conditions'] = array('ForumTopic.id' => $topic_id);
+        // get topic count
+        $count = $this->ForumCategory->ForumTopic->find('count', $options);
+        
+        //debug( $count );
+        if(  $count == 0  ){
+            $this->Session->setFlash('Invalid Topic'); // set error title
+            $this->redirect( $this->referer() ); // redirect to previous page
+        } // check
+        
+        // dapatkan nilai untuk breadcrumb
+        $options['fields'] = array(
+                                  'ForumTopic.title', 
+                                  'ForumTopic.id',
+                                  'ForumTopic.descriptions',
+                                  'ForumCategory.title', 
+                                  'ForumCategory.id'
+                                  );
+        // how many table join ?
+        $options['recursive'] = 1;
+        
+        // use containable
+        $this->ForumCategory->ForumTopic->Behaviors->attach('Containable');
+        $options['contain'] = array('ForumCategory'); // only need ForumCategory
+        
+        $topic = $this->ForumCategory->ForumTopic->find('first' , $options );
+        //debug(  $topic  );
+        $this->set('topic' , $topic ); // send to view
+    } // create_reply(0
+     
    
    
     

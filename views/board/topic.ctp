@@ -51,6 +51,16 @@
 </div><!-- #reply -->
 <?php ENDFOREACH; ?>
 
+<div id="link">
+<?php 
+  unset($options);
+  $options['controller'] = 'Board';
+  $options['action'] = 'create_reply';
+  $options['topic_id'] = $this->passedArgs['topic_id'];
+  $this->SiteModule->link('Post Reply', $options );
+?>  
+</div>
+
 
 
 
