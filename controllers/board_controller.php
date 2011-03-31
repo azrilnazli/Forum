@@ -446,7 +446,7 @@ Class BoardController extends AppController {
      * result must use Pagination
      **/
      function search(){
-     phpinfo();
+     //phpinfo();
      // debug($this->data);
         // query can be from $_POST and $passedArgs
         $query =  null;
