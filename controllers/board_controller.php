@@ -438,6 +438,136 @@ Class BoardController extends AppController {
         //debug(  $topic  );
         $this->set('topic' , $topic ); // send to view
     } // create_reply(0
+    
+    /**
+     * Search by $query against Category, Topic and Reply
+     * result must use Pagination
+     **/
+     function search(){
+     // debug($this->data);
+        // query can be from $_POST and $passedArgs
+        $query =  null;
+        $type= null;
+        $results = null;
+        
+        if(  $this->RequestHandler->isPost() ){
+            $query = $this->data['Search']['query'];
+            $type = $this->data['Search']['type'];    
+        }    
+        if(  !empty(  $this->passedArgs['query']  )) $query = $this->passedArgs['query'];
+        if(  !empty(  $this->passedArgs['type']  )) $type = $this->passedArgs['type'];
+        
+       
+       switch( $type ){
+       case 'category':       ################################## 
+              $conditions = array(
+                'OR' => array(
+                  'ForumCategory.title LIKE'                   => "%{$query}%",
+                  'ForumCategory.descriptions LIKE'      => "%{$query}%",
+                ));
+                
+              $fields = array(
+                  'ForumCategory.title',
+                  'ForumCategory.descriptions',
+                  'ForumCategory.created',
+                );
+                
+              $order = 'ForumCategory.id DESC';
+              
+              $contain = array(
+                                  'StaffInformation' => array('fields' => array('id','username') )                       
+                               );
+              // setup pagination options  
+              $this->paginate['limit'] = 1; // limit per page
+              $this->paginate['fields'] = $fields;
+              $this->paginate['totallimit'] = 1000; // limit total results
+              $this->paginate['conditions'] = $conditions; // conditions
+              $this->paginate['order'] =  $order; // ordering
+              $this->paginate['recursive'] = 1 ; // recursiveness
+              $this->paginate['contain'] =  $contain; // containable
+        
+              # Containable On The Fly
+              $this->ForumCategory->Behaviors->attach('Containable');
+              $results =  $this->paginate('ForumCategory'); // get Topics   
+              $this->set(compact('results'));              
+             break; // topic  #################################        
+
+            case 'topic':       ################################## 
+              $conditions = array(
+                'OR' => array(
+                  'ForumTopic.title LIKE'                   => "%{$query}%",
+                  'ForumTopic.descriptions LIKE'      => "%{$query}%",
+                ));
+                
+              $fields = array(
+                  'ForumTopic.title',
+                  'ForumTopic.descriptions',
+                   'ForumTopic.created',
+                );
+                
+              $order = 'ForumTopic.id DESC';
+              
+              $contain = array( 
+                                  'ForumCategory' => array('fields' => array('id','title') ) ,
+                                  'StaffInformation' => array('fields' => array('id','username') )                       
+                               );
+               // setup pagination options  
+              $this->paginate['limit'] = 1; // limit per page
+              $this->paginate['fields'] = $fields;
+              $this->paginate['totallimit'] = 1000; // limit total results
+              $this->paginate['conditions'] = $conditions; // conditions
+              $this->paginate['order'] =  $order; // ordering
+              $this->paginate['recursive'] = 1 ; // recursiveness
+              $this->paginate['contain'] =  $contain; // containable
+              
+              # Containable On The Fly
+              $this->ForumCategory->ForumTopic->Behaviors->attach('Containable');
+              $results =  $this->paginate('ForumTopic'); // get Topics   
+               $this->set(compact('results'));              
+             break; // topic  #################################    
+             
+            case 'reply':       ################################## 
+              $conditions = array(
+                'OR' => array(
+                  'ForumReply.reply LIKE'                   => "%{$query}%",
+                ));
+                
+              $fields = array(
+                  'ForumReply.reply', 'ForumReply.created',
+                );
+                
+              $order = 'ForumTopic.id DESC';
+              
+              $contain = array( 
+                                  'ForumCategory' => array('fields' => array('id','title') ) ,
+                                  'ForumTopic' => array('fields' => array('id','title') ) ,
+                                  'StaffInformation' => array('fields' => array('id','username') )                       
+                               );
+               // setup pagination options  
+              $this->paginate['limit'] = 1; // limit per page
+              $this->paginate['fields'] = $fields;
+              $this->paginate['totallimit'] = 1000; // limit total results
+              $this->paginate['conditions'] = $conditions; // conditions
+              $this->paginate['order'] =  $order; // ordering
+              $this->paginate['recursive'] = 1 ; // recursiveness
+              $this->paginate['contain'] =  $contain; // containable
+              
+              # Containable On The Fly
+              $this->ForumCategory->ForumTopic->ForumReply->Behaviors->attach('Containable');
+              $results =  $this->paginate('ForumReply'); // get Topics   
+               $this->set(compact('results'));              
+             break; // topic  #################################                 
+             
+        } // type
+        
+
+        //debug($results);
+        //debug($query);
+        $this->set('type' , $type);
+        $this->set('query' , $query);
+     
+     
+     } // search
      
    
    

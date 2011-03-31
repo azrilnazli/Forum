@@ -34,11 +34,15 @@
        $options['controller'] = 'StaffInformations';
        $options['action'] = 'forgot_password';
        $login = $this->Html->link('Forgot Password', $options);
-      echo $this->Html->tag('li', $login);         
+      echo $this->Html->tag('li', $login);   
+
+       $options['controller'] = 'Board';
+       $options['action'] = 'search';
+       $login = $this->Html->link('Search', $options);
+      echo $this->Html->tag('li', $login);          
       ?>
 
 
-      <li>Forum Guidelines</li>
-      <li>Search</li>
+
     </ul>
 </div>      
