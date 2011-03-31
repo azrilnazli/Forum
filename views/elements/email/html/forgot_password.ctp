@@ -4,7 +4,7 @@
 <br />
 <br />
 <?php
-$url = "http://localhost/forum/StaffInformations/reset/ticket:$ticket";
+$url = "http://{$_SERVER['SERVER_NAME']}forum/StaffInformations/reset/ticket:$ticket";
 ?>
 Reset password : <?php echo $this->Html->link('Click Here', $url ); ?>
 
