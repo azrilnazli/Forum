@@ -439,6 +439,8 @@ Class BoardController extends AppController {
         $this->set('topic' , $topic ); // send to view
     } // create_reply(0
     
+    
+    
     /**
      * Search by $query against Category, Topic and Reply
      * result must use Pagination
@@ -451,12 +453,18 @@ Class BoardController extends AppController {
         $results = null;
         
         if(  $this->RequestHandler->isPost() ){
+            // validation cara manual
+           if(  empty(  $this->data['Search']['query']  )  ){  // check empty ?
+                $this->Session->setFlash('Empty query');
+                $this->redirect( 'search' );
+            } // check       
             $query = $this->data['Search']['query'];
             $type = $this->data['Search']['type'];    
         }    
         if(  !empty(  $this->passedArgs['query']  )) $query = $this->passedArgs['query'];
         if(  !empty(  $this->passedArgs['type']  )) $type = $this->passedArgs['type'];
         
+
        
        switch( $type ){
        case 'category':       ################################## 
