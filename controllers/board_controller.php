@@ -75,7 +75,8 @@ Class BoardController extends AppController {
               /* ForumTopic */
               'ForumTopic' => array(
                   'fields' => array('id','title','created'),
-                  'limit' => 10, // limitkan data 
+                  'limit' => 10, // limitkan data
+                  'order' => 'id DESC'
               ), // ForumTopic
               
               /* ForumTopic.ForumReply */
