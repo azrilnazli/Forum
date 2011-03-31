@@ -27,8 +27,8 @@ Class BoardController extends AppController {
         $this->Auth->allow(array('*') );
         
         // automatic
-        //$this->data = Sanitize::clean($this->data, array('encode' => false));
-        $this->data = Sanitize::paranoid($this->data);
+        $this->data = Sanitize::clean($this->data, array('encode' => false));
+        //$this->data = Sanitize::paranoid($this->data);
 
     }
     
