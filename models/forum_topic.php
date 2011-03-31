@@ -23,7 +23,7 @@ Class ForumTopic extends AppModel{
     ); // belongsTo    
     
     var $hasMany = array(
-        'ForumReply',
+        'ForumReply' => array('dependent' => TRUE),
     ); // hasMany
     
     var $validate = array(

@@ -51,6 +51,12 @@
 </div><!-- #reply -->
 <?php ENDFOREACH; ?>
 
+
+<div id = "category">
+<div id="pagination">
+    <?php $this->SiteModule->paginate(); ?>
+</div>
+
 <div id="link">
 <?php 
   unset($options);
@@ -59,6 +65,7 @@
   $options['topic_id'] = $this->passedArgs['topic_id'];
   $this->SiteModule->link('Post Reply', $options );
 ?>  
+</div>
 </div>
 
 

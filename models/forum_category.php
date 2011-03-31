@@ -16,8 +16,8 @@ Class ForumCategory extends AppModel{
      * Model Relations
     **/
     var $hasMany = array(
-        'ForumTopic',
-        'ForumReply',
+        'ForumTopic' => array('dependent' => TRUE),
+        'ForumReply' => array('dependent' => TRUE),
     ); // hasMany        
     
     var $belongsTo = array(

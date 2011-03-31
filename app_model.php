@@ -31,4 +31,12 @@
  * @subpackage    cake.app
  */
 class AppModel extends Model {
+
+    public function paginateCount($conditions = null, $recursive = 0, $extra = array()) {
+        $parameters = compact('conditions', 'recursive', 'extra');
+        $count = $this->find('count', $parameters);
+        if( isset(  $extra['totallimit']  ) && $count > $extra['totallimit'] ) return $extra['totallimit'];
+        return $count;
+    }
+    
 }

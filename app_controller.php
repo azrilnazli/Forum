@@ -82,6 +82,8 @@ class AppController extends Controller {
               $this->disAllow('StaffInformations', 'reset' );
               
       } // check
+      
+      
  
   
   } // beforeFilter()
@@ -103,5 +105,7 @@ class AppController extends Controller {
           $this->redirect( '/' );
       } // checking
    } // disAllow()
+
+  
   
 } // AppController()

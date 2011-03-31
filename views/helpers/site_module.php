@@ -151,6 +151,20 @@ Class SiteModuleHelper extends AppHelper{
      } // link
      
      
+    /**
+     * Display Pagination
+     **/
+     function paginate(){
+        
+        // nak load Element function
+        $this->View =& ClassRegistry::getObject('view');
+        
+        // display using element APP/views/elements/recent_topics.ctp
+        echo  $this->View->element('paginator') ;
+     
+     } // link     
+     
+     
      
     
 }

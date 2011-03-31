@@ -7,6 +7,9 @@
 <p></p>
 <div id ="category"> 
       <?php echo $this->Html->tag('h1', $title); ?>
+      
+  
+      
       <?php 
       // display element from APP/views/elements/board/topic_index.ctp
       echo $this->Element(
@@ -16,7 +19,11 @@
           )      
       ); 
       ?>
-     
+
+      <div id="pagination">
+          <?php $this->SiteModule->paginate(); ?>
+      </div>
+      
       <div id="link">
       <?php 
         $options['controller'] = 'Board';
@@ -25,5 +32,7 @@
         $this->SiteModule->link('Create Topic', $options );
       ?>  
       </div>
+
+
 </div> <!-- #category -->
 <p></p>

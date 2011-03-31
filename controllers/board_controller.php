@@ -6,6 +6,8 @@
  * VIEW | APP/views/board/*
  * @author Azril Nazli Alias
  */ 
+ 
+App::import('Sanitize'); // import Sanitize
 Class BoardController extends AppController {
 
     var $name = 'Board';
@@ -23,6 +25,11 @@ Class BoardController extends AppController {
     function beforeFilter(){
         parent::beforeFilter();
         $this->Auth->allow(array('*') );
+        
+        // automatic
+        //$this->data = Sanitize::clean($this->data, array('encode' => false));
+        $this->data = Sanitize::paranoid($this->data);
+
     }
     
     /**
@@ -164,8 +171,19 @@ Class BoardController extends AppController {
 
      
      // get the data
-     $topics =  $this->ForumCategory->ForumTopic->find('all' , $options);
-     //debug($topics);
+     //$topics =  $this->ForumCategory->ForumTopic->find('all' , $options);
+     
+
+     // setup pagination options  
+     $this->paginate['limit'] = 3; // limit per page
+     $this->paginate['fields'] = $options['fields'];
+     $this->paginate['totallimit'] = 1000; // limit total results
+     $this->paginate['conditions'] = $options['conditions']; // conditions
+     $this->paginate['order'] =  $options['order']; // ordering
+     $this->paginate['recursive'] =  $options['recursive']; // recursiveness
+     $this->paginate['contain'] =  $options['contain']; // containable
+     
+     $topics =  $this->paginate('ForumTopic'); // get Topics
      
      // get category title only
      $this->ForumCategory->recursive = -1;
@@ -198,23 +216,14 @@ Class BoardController extends AppController {
           $this->redirect('index');
       } // check $category is valid    
    
-    
-      # breadcrumb & topic data
-      $options['recursive'] = 1;
-      $options['conditions'] = array('ForumTopic.id' =>  $topic_id );
-      $options['fields'] = array(
-                                  'ForumTopic.title',
-                                  'ForumTopic.descriptions',
-                                  'ForumTopic.created'
-                                  );
-      
+
       # hidupkan Containable
       $this->ForumCategory->ForumTopic->Behaviors->attach('Containable');
       $options['contain'] = array(
          
           /** Forum Category **/
          'ForumCategory' => array(
-              'fields' => array('title')
+              'fields' => array('id','title')
           ), // ForumCategory
           
 
@@ -224,6 +233,8 @@ Class BoardController extends AppController {
           ) // StaffInformation          
           
       ); // Contain
+      
+
       
       $topic = $this->ForumCategory->ForumTopic->find('first', $options);
       //debug($topic);
@@ -240,6 +251,7 @@ Class BoardController extends AppController {
       /*******************************************/
       unset($options); // reset $options
       $options['recursive'] = 3;
+      $options['order'] = 'ForumReply.id DESC';
       $options['conditions'] = array('ForumReply.forum_topic_id' =>  $topic_id );
       
       $options['fields'] = array(
@@ -267,8 +279,21 @@ Class BoardController extends AppController {
 
       
       // execute the call
-      $replies = $this->ForumCategory->ForumTopic->ForumReply->find('all', $options);
-      //debug($replies);
+      //$replies = $this->ForumCategory->ForumTopic->ForumReply->find('all', $options);
+
+     // setup pagination options  
+     $this->paginate['limit'] = 3; // limit per page
+     $this->paginate['fields'] = $options['fields'];
+     $this->paginate['totallimit'] = 1000; // limit total results
+     $this->paginate['conditions'] = $options['conditions']; // conditions
+     $this->paginate['order'] =  $options['order']; // ordering
+     $this->paginate['recursive'] =  $options['recursive']; // recursiveness
+     $this->paginate['contain'] =  $options['contain']; // containable
+     
+     $replies =  $this->paginate('ForumReply'); // get Topics
+
+
+     //debug($replies);
       $this->set(compact('replies'));
 
    } // topic()       
@@ -339,6 +364,47 @@ Class BoardController extends AppController {
      *  3. Jika tiada $topic_id redirect
      **/
     function create_reply() {
+    
+        // detect from submission
+        if(  $this->RequestHandler->isPost() ){
+        
+            //debug(  $this->data  ); 
+            // daftar nilai form masuk Model
+            $this->ForumCategory->ForumTopic->set(  $this->data );
+            
+            // validation cara manual
+           if(  empty(  $this->data['ForumReply']['reply']  )  ){  // check empty ?
+              $this->ForumCategory->ForumTopic->ForumReply->invalidate('reply', 'Empty reply ?');  // invalidate reply field
+            } // check
+            
+            // validation
+            if(  $this->ForumCategory->ForumTopic->ForumReply->validates()  ){
+                // save dalam ForumTopic
+                  
+                  
+                // cleankan data
+                //$this->data = Sanitize::clean($this->data, array('encode' => false));
+                
+                if( $this->ForumCategory->ForumTopic->ForumReply->save( $this->data )  ){
+                  $this->Session->setFlash('Post successfully replied' );
+                  
+                  $this->ForumCategory->ForumTopic->ForumReply->saveField('forum_category_id',  $this->passedArgs['category_id'] ); 
+                  
+                  $this->ForumCategory->ForumTopic->ForumReply->saveField('forum_topic_id',  $this->passedArgs['topic_id'] ); 
+                  
+                  $this->ForumCategory->ForumTopic->ForumReply->saveField('staff_information_id',  $this->Auth->user('id') ); 
+                  
+                  $options['controller'] = 'Board';
+                  $options['action'] = 'topic';
+                  $options['topic_id'] = $this->passedArgs['topic_id']  ;
+                  $this->redirect( $options );
+                  
+              } // save()
+                
+                
+            }
+        
+        } // isPost()
     
         $topic_id = $this->passedArgs['topic_id']; // dapatkan nilai dari URL
         

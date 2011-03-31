@@ -213,11 +213,12 @@ textarea {
 .form input[type=password] { width: 300px; height: 30px; border: 1px #000 solid; font-size: 2em }
 
 .form textarea {
-border: 1px #000 solid;
-width: 300px;
-font-size: 2em;
-font-weight:bold;
+    border: 2px blue solid;
+    width: 400px;
+    font-size: 2em;
+    font-weight:bold;
 }
+
 /** Radio Button **/
 .form input[type=radio] { margin-right: 10px }
 .form .radio { font-size: 2.2em }
