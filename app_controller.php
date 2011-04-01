@@ -9,6 +9,9 @@ class AppController extends Controller {
       /** Authentication **/
       'Auth' => array(  
       
+          /** enable isAuthorized **/
+          'authorize' => 'controller', 
+      
           /** use StaffInformation model **/
           'userModel' => 'StaffInformation',    
       
@@ -16,6 +19,7 @@ class AppController extends Controller {
           'loginAction' => array(
                     'controller' => 'StaffInformations',
                     'action' => 'login',
+                    'admin' => FALSE
             ), // loginAction
             
           /** Fields **/
@@ -105,6 +109,23 @@ class AppController extends Controller {
           $this->redirect( '/' );
       } // checking
    } // disAllow()
+   
+   function isAuthorized(){
+        return true;
+       //debug($this->params);
+        if(  isset( $this->params['admin'] ) && $this->params['admin']  == 1 ){
+            //$this->Auth->deny();
+            // check user status
+            $user = $this->Session->read('user');
+            $role  = strToLower(  $user['ForumRole']['title']  );
+            if(  $role != 'admin' ){
+                $this->Session->setFlash('Invalid Permission');
+                $this->redirect( $this->referer() );
+            }
+        } else {
+            return true;
+        }
+   }
 
   
   

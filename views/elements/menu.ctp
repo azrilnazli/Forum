@@ -46,6 +46,13 @@
        $options['action'] = 'avatar';
        $login = $this->Html->link('Avatar', $options);
       echo $this->Html->tag('li', $login);               
+      
+
+       $options['controller'] = 'StaffInformations';
+       $options['action'] = 'index';
+       $options['admin'] = true;
+       $login = $this->Html->link('Administration', $options);
+      echo $this->Html->tag('li', $login);       
       ?>
 
 
