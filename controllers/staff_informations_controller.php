@@ -18,7 +18,8 @@ Class StaffInformationsController extends AppController{
                         'signup' , 
                         'login',
                         'forgot_password',
-                        'reset'
+                        'reset',
+                        'show_avatar'
                         ));
     }
     
@@ -242,5 +243,120 @@ Class StaffInformationsController extends AppController{
     } // isPut()
 
   } // reset
+  
+  /**
+   * To display and store avatar
+   * only accepts JPG and PNG
+   * Size must be greater than 0 and less than 1MB
+   * uploaded file stored at APP/webroot/img/avatars/
+   * file must be renamed to $staff_information_id-filename.jpg
+  **/
+  function avatar(){
+      $this->layout = 'forum';
+      
+      if(  $this->RequestHandler->isPost()  ){
+
+          //debug( $this->data );
+          $this->StaffInformation->Attachment->set(  $this->data  );
+          
+          if(  $this->StaffInformation->Attachment->validates() ){
+          
+            // set $destination
+            $destination = WWW_ROOT . 'img' . DS . 'avatars';
+            
+            if(!is_dir($destination)){
+               $msg =  $destination . ' does not exist';
+               // APP/views/layouts/flash.ctp
+               $this->flash($msg , $this->referer() );
+            } // detect for existance
+            
+            if(!is_writeable($destination)){
+               $msg =  $destination . ' is not writable';
+               // APP/views/layouts/flash.ctp
+               $this->flash($msg , $this->referer() );
+            } // detect for writable
+            
+            // move from tmp to $destination . DS . 
+            $tmp_path = $this->data['Attachment']['image']['tmp_name'];
+            $tmp_name = basename( $tmp_path  );
+            
+            
+            // kalau berjaya move, baru rename file
+            // format $id-filename.ext
+            if(  move_uploaded_file( $tmp_path ,  $destination . DS . $tmp_name )  ){
+                
+                // Give variable to $image
+                $image['size'] = $this->data['Attachment']['image']['size'];
+                $image['type'] = $this->data['Attachment']['image']['type'];
+                $image['staff_information_id'] = $this->Auth->user('id');
+            
+                // save dalam Attachment Model
+                if(  $this->StaffInformation->Attachment->save( $image )  ){
+                    // save name
+                    $id =   $this->StaffInformation->Attachment->id;
+                    $name =  $this->data['Attachment']['image']['name'];
+                    $filename = "$id-$name"; // $this->Auth->user('no_kp');
+                    $this->StaffInformation->Attachment->saveField( 'name' , $filename );
+                    
+                    // rename tmp_name to filename
+                    $old =  $destination . DS . $tmp_name;
+                    $new = $destination . DS . $filename;
+                    rename( $old, $new );
+                    
+                    // success
+                    $this->Session->setFlash('Upload Successful');
+                    $this->redirect( $this->referer() );
+                    
+                } // save
+            
+            } // move_uploaded_file
+            
+            //debug($destination);
+          
+          } else {
+              // error validation
+              debug (   $this->StaffInformation->Attachment->invalidFields() );
+          }
+      
+      } // isPost()
+  
+  } // avatar()
+  
+  function show_avatar(){
+        
+        $this->autoRender = FALSE;
+        $id = $this->passedArgs['id'];
+        $file = $this->StaffInformation->Attachment->findById($id);
+        $folder = WWW_ROOT . 'img' . DS . 'avatars';
+        $filename = $folder .DS .$file['Attachment']['name'];
+
+
+        // Set a maximum height and width
+        $width  = isset( $this->passedArgs['width'] )   ?  $this->passedArgs['width']   : 100;
+        $height = isset( $this->passedArgs['height'] )  ?  $this->passedArgs['height']  : 100;
+
+        // Content type
+        header("Content-type: ". $file['Attachment']['mime']);
+
+        // Get new dimensions
+        list($width_orig, $height_orig) = getimagesize($filename);
+
+        $ratio_orig = $width_orig/$height_orig;
+
+        if ($width/$height > $ratio_orig) {
+                $width = $height*$ratio_orig;
+        } else {
+        $height = $width/$ratio_orig;
+        }
+
+        // Resample
+        $image_p = imagecreatetruecolor($width, $height);
+        $image = imagecreatefromjpeg($filename);
+        imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
+
+        // Output
+        imagejpeg($image_p, null, 100);
+  }// show_thumbnail_2
+  
  
 } // StaffInformation

@@ -27,7 +27,7 @@ Class BoardController extends AppController {
         $this->Auth->allow(array('*') );
         
         // automatic
-        $this->data = Sanitize::clean($this->data, array('encode' => false));
+        //$this->data = Sanitize::clean($this->data, array('encode' => false));
         //$this->data = Sanitize::paranoid($this->data);
 
     }
@@ -633,10 +633,10 @@ Class BoardController extends AppController {
                 $this->ForumCategory->ForumTopic->id = $topic_id;
                 
                 // sekarang baru boleh save
-                if( $this->ForumCategory->ForumTopic->save(  $this->data ){
+                if( $this->ForumCategory->ForumTopic->save(  $this->data ) ){
                 
                     // delete session
-                    $this->Session->delete('topic_id');
+                    $this->Session->delete  ('topic_id');
                     
                     // message
                     $this->Session->setFlash('Topic updated');

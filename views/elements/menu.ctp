@@ -39,7 +39,13 @@
        $options['controller'] = 'Board';
        $options['action'] = 'search';
        $login = $this->Html->link('Search', $options);
-      echo $this->Html->tag('li', $login);          
+      echo $this->Html->tag('li', $login);      
+
+
+       $options['controller'] = 'StaffInformations';
+       $options['action'] = 'avatar';
+       $login = $this->Html->link('Avatar', $options);
+      echo $this->Html->tag('li', $login);               
       ?>
 
 

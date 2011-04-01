@@ -20,9 +20,9 @@
       <table width="100%">
       <tr>
       <td>
-          <span id="title"><?php echo $topic['ForumTopic']['title']; ?></span>
+          <span id="title"><?php echo $this->Html->clean($topic['ForumTopic']['title']); ?></span>
           <br />
-          <span id="poster">  Posted by  <?php echo $topic['StaffInformation']['username']; ?></span>
+          <span id="poster">  Posted by  <?php echo $this->Html->clean($topic['StaffInformation']['username']); ?></span>
           <span id="created"><?php echo $topic['ForumTopic']['created']; ?></span>
         </td>  
       </table>
@@ -32,7 +32,7 @@
   <div class = "body">
  
  <span id ="descriptions">
-      <?php echo $topic['ForumTopic']['descriptions']; ?>
+      <?php echo $this->Html->clean(nl2br( $topic['ForumTopic']['descriptions'] )); ?>
   </span>
   </div><!-- .body --> 
   

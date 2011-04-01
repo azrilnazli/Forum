@@ -142,6 +142,35 @@ var $forum_topics = array(
     );
   
   // cake schema create forum staff_informations  
+  
+  
+  // Attachments
+  var $attachments = array(
+		'id' => array(
+                        'type' => 'integer', 
+                        'key' => 'primary'
+                      ),
+    
+    // Attachment belongsTo StaffInformation
+    'staff_information_id' => array('type' => 'integer'),
+    
+    // filename
+    'name' => array('type' => 'string'),
+
+    // mime
+    'mime' => array('type' => 'string'),    
+    
+     // size
+    'size' => array('type' => 'integer'),   
+
+     // path
+    'path' => array('type' => 'path'),   
+    
+    // general fields
+    'created' => array('type' => 'datetime'),
+    'modified' => array('type' => 'datetime'),    
+
+  ); // attachments
 
 }
 ?>

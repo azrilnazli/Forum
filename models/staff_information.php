@@ -18,6 +18,10 @@ Class StaffInformation extends AppModel{
         'ForumRole'
     ); // belongsTo 
     
+    var $hasOne = array(
+      'Attachment'
+    ); // hasOne
+    
     var $hasMany = array(
         'ForumCategory',
         'ForumTopic',
