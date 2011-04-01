@@ -38,7 +38,7 @@ Class StaffInformationsController extends AppController{
     // callback before cake fire up view
     function beforeRender(){
         // only display certain fields
-        $fields = array('forum_role_id','username','biodata');// field name in table
+        $fields = array('forum_role_id','password' , 'email' , 'username','biodata');// field name in table
         $this->set('scaffoldFields' ,  $fields); // send to view
     } // beforeRender()    
     

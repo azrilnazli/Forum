@@ -6,7 +6,7 @@ $this->Html->addCrumb('Search');
 ?>
 </div>
 <p></p>
-
+<div id = "category">
 <!-- #topic | rujuk dalam APP/webroot/css/forum.css -->
 <div id = "search">
   
@@ -108,7 +108,7 @@ ENDFOREACH;
 <?php ENDIF; ?>
 
 </div>
-
+</div>
 
 
 

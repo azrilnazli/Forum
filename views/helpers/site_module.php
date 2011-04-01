@@ -164,6 +164,43 @@ Class SiteModuleHelper extends AppHelper{
      
      } // link     
      
+     /**
+      * Display Link based on role
+      **/
+      function role_action( $options = null ){
+      
+          // get user Current Group
+          $user = $this->Session->read('user'); // read from Session
+          //debug($user);
+          // convert to lower care
+          $role = strToLower( $user['ForumRole']['title'] );
+          
+          // nak load Element function
+          $this->View =& ClassRegistry::getObject('view');
+          
+          switch($role){
+          
+              case 'user':
+                  // display using element APP/views/elements/action.user.ctp
+                  echo  $this->View->element('/board/action.user') ;
+              break;
+              
+              case 'moderator':
+                  // display using element APP/views/elements/action.moderator.ctp
+                  echo  $this->View->element('/board/action.moderator') ;
+              break;              
+              
+              case 'admin':
+                  // display using element APP/views/elements/action.admin.ctp
+                  echo  $this->View->element(
+                      DS . 'board' . DS . 'action.admin' ,
+                      array('options' => $options)  // passing variable to element file
+                      ) ;
+              break;                        
+          } // switch
+      
+      } // role_action()
+     
      
      
     

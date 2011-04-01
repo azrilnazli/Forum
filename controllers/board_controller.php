@@ -579,6 +579,49 @@ Class BoardController extends AppController {
      
      } // search
      
+     /**
+      * Delete Topic based on :topic_id
+     **/
+     function delete_topic(){
+      
+          // get :topic_id from URL and assign to $topic_id
+          $topic_id = $this->passedArgs[  'topic_id'  ];
+          // check topic_id valid ?
+          $options['conditions'] = array('ForumTopic.id' => $topic_id);
+          // get topic count
+          $count = $this->ForumCategory->ForumTopic->find('count', $options);
+        
+          //debug( $count );
+          if(  $count == 0  ){
+              $this->Session->setFlash('Invalid Topic'); // set error title
+              $this->redirect( $this->referer() ); // redirect to previous page
+          } // check     
+
+          // only admin can delete Topic, get logged_in user role
+          $user = $this->Session->read('user'); // get $user from Session
+          $role = strToLower(  $user['ForumRole']['title'] ); // get Role Title
+          
+          switch( $role ){
+          
+              case 'admin':
+                  // admin can delete topic now
+                  $this->ForumCategory->ForumTopic->delete($topic_id);
+              break;
+          
+          } // endSwitch
+          
+          // Give message and redirect to referer()
+          $this->Session->setFlash(" Topic #$topic_id  deleted ");
+          
+          // redirect to category list
+          $options['controller'] = 'Board';
+          $options['action'] = 'category';
+          $options['category_id']  = $this->passedArgs['category_id'];
+          $this->redirect( $options );
+          
+          $this->autoRender = FALSE; // this action don't have view
+        
+      } // delete_topic
    
    
     

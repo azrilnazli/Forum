@@ -26,6 +26,7 @@
           <span id="created"><?php echo $topic['ForumTopic']['created']; ?></span>
         </td>  
       </table>
+      
   </div><!-- .header -->
   
   <div class = "body">
@@ -34,6 +35,28 @@
       <?php echo $topic['ForumTopic']['descriptions']; ?>
   </span>
   </div><!-- .body --> 
+  
+  <?php 
+  
+  // only display for logged
+  IF(  $this->Session->check('user') ): // registered at app_controller::beforeFilter
+      // Edit
+      $options['edit']['controller'] = 'Board';
+      $options['edit']['action'] = 'edit_topic';
+      $options['edit']['topic_id'] =  $topic['ForumTopic']['id'];
+      $options['edit']['category_id'] = $topic['ForumCategory']['id'];
+
+      // Delete
+      $options['delete']['controller'] = 'Board';
+      $options['delete']['action'] = 'delete_topic';
+      $options['delete']['topic_id'] =  $topic['ForumTopic']['id'];  
+      $options['delete']['category_id'] = $topic['ForumCategory']['id'];
+      
+      // display link for editing
+      $this->SiteModule->role_action( $options );
+  ENDIF; // Check User     
+  ?>
+  
 </div> <!-- #topic -->
 <p></p>
 
