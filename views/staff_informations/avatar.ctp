@@ -9,6 +9,16 @@
 
 <div id = 'info' class="form">
     <h1>My Avatar</h1>   
+    <?php 
+    $options['controller'] = 'StaffInformations';
+    $options['action'] = 'show_avatar';
+    $options['id'] = 4;
+    $options['height'] = 640;
+    $options['width'] = 480;
+    echo  $this->Html->image($options); 
+    ?>
+    
+    
     <?php
     $options['url']['controller'] = 'StaffInformations';
     $options['url']['action'] = 'avatar';
