@@ -345,6 +345,7 @@ Class BoardController extends AppController {
             $this->redirect( $this->referer() );
         } // check
         
+        // breadcrumb data
         $options['fields'] = array('ForumCategory.title', 'ForumCategory.id' );
         $options['recursive'] = -1;
         
@@ -353,7 +354,7 @@ Class BoardController extends AppController {
         $this->set('category' , $category );
             
     
-    }
+    } // create_topic()
     
     /**
      * Paparkan form untuk reply topic
@@ -583,19 +584,8 @@ Class BoardController extends AppController {
       * Delete Topic based on :topic_id
      **/
      function delete_topic(){
-      
-          // get :topic_id from URL and assign to $topic_id
-          $topic_id = $this->passedArgs[  'topic_id'  ];
-          // check topic_id valid ?
-          $options['conditions'] = array('ForumTopic.id' => $topic_id);
-          // get topic count
-          $count = $this->ForumCategory->ForumTopic->find('count', $options);
-        
-          //debug( $count );
-          if(  $count == 0  ){
-              $this->Session->setFlash('Invalid Topic'); // set error title
-              $this->redirect( $this->referer() ); // redirect to previous page
-          } // check     
+          // check :topic_id
+          $topic_id = $this->get_topic_id();
 
           // only admin can delete Topic, get logged_in user role
           $user = $this->Session->read('user'); // get $user from Session
@@ -605,7 +595,7 @@ Class BoardController extends AppController {
           
               case 'admin':
                   // admin can delete topic now
-                  $this->ForumCategory->ForumTopic->delete($topic_id);
+                  $this->ForumCategory->ForumTopic->delete( $topic_id );
               break;
           
           } // endSwitch
@@ -622,7 +612,90 @@ Class BoardController extends AppController {
           $this->autoRender = FALSE; // this action don't have view
         
       } // delete_topic
-   
-   
+      
+    /**
+      * Edit Topic based on :topic_id
+     **/
+    function edit_topic(){      
+        // detect post submission
+        if(  $this->RequestHandler->isPost()  ){
+        
+            // set $this->data variable into Model
+            $this->ForumCategory->ForumTopic->set( $this->data );
+            
+            // validates submmision
+            if(  $this->ForumCategory->ForumTopic->validates()  ){
+            
+                //debug( $this->data );
+                // update kena supply id topic, guna Session untuk dapatkan id
+                $topic_id = $this->Session->read('topic_id');
+                // assign topic_id kepada model->id
+                $this->ForumCategory->ForumTopic->id = $topic_id;
+                
+                // sekarang baru boleh save
+                if( $this->ForumCategory->ForumTopic->save(  $this->data ){
+                
+                    // delete session
+                    $this->Session->delete('topic_id');
+                    
+                    // message
+                    $this->Session->setFlash('Topic updated');
+                    
+                    // redirect ke view topic
+                    $options['controller'] = 'Board';
+                    $options['action'] = 'topic';
+                    $options['topic_id']  = $topic_id;
+                    $this->redirect( $options );
+                
+                } // save
+            
+            } // validates
+            
+        } // detect isPost()
+    
+    
+        // get $topic_id
+        $topic_id = $this->get_topic_id();
+        $category_id = $this->passedArgs['category_id'];
+        
+        // breadcrumb
+        $options['fields'] = array('ForumCategory.title', 'ForumCategory.id' );
+        $options['recursive'] = -1;
+        $options['conditions']['id'] = $category_id;     
+        $category = $this->ForumCategory->find('first' , $options );
+        //debug(  $category  );
+        $this->set('category' , $category );
+                
+        // daftar $topic_id dalam Session
+        $this->Session->write('topic_id' , $topic_id );
+        
+        // get $topic data and give to $this->data
+        unset($options);
+        $options['recursive'] = -1;
+        $options['conditions']['id'] = $topic_id;        
+        $this->data = $this->ForumCategory->ForumTopic->find('first', $options );
+        //debug( $this->data );
+
+    } // edit topic
+    
+    /**
+     * Check :topic_id
+     **/
+    function get_topic_id(){
+         // get :topic_id from URL and assign to $topic_id
+          $topic_id = $this->passedArgs[  'topic_id'  ];
+          // check topic_id valid ?
+          $options['conditions'] = array('ForumTopic.id' => $topic_id);
+          // get topic count
+          $count = $this->ForumCategory->ForumTopic->find('count', $options);
+        
+          //debug( $count );
+          if(  $count == 0  ){
+              $this->Session->setFlash('Invalid Topic'); // set error title
+              $this->redirect( $this->referer() ); // redirect to previous page
+          } // check          
+          
+          return $topic_id;
+    } // check_topic_id
     
 } // BoardController
